@@ -1,0 +1,15 @@
+Package: compassanalytics
+Version: 0.0.0.9000
+Title: A Library for Conducting Analyses on COMPASS Data
+Description: # TODO: Start writing the description here.
+    # TODO: If you need more lines, indent them like so.
+    # TODO: Remember to change the version number above.
+Depends:
+    R (>= 3.6.2),
+Imports:
+    magrittr,
+    tidyverse,
+License: # TODO
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.0.2
