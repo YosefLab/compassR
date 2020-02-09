@@ -9,13 +9,13 @@ Description.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
+\item{\code{metadata}}{A field.}
+
 \item{\code{reaction_consistencies}}{A field.}
 
 \item{\code{metareaction_consistencies}}{A field.}
 
 \item{\code{gene_expression_statistics}}{A field.}
-
-\item{\code{reaction_identifiers}}{A field.}
 }
 \if{html}{\out{</div>}}
 }
@@ -24,6 +24,7 @@ Description.
 \itemize{
 \item \href{#method-new}{\code{Analyzer$new()}}
 \item \href{#method-print}{\code{Analyzer$print()}}
+\item \href{#method-repr}{\code{Analyzer$repr()}}
 \item \href{#method-clone}{\code{Analyzer$clone()}}
 }
 }
@@ -34,11 +35,14 @@ Description.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Analyzer$new(
   ...,
-  metabolic_model,
+  metadata_directory,
+  gene_metadata_file,
+  metabolite_metadata_file,
+  reaction_metadata_file,
   reaction_consistencies_file,
   linear_gene_expression_matrix_file,
-  reaction_annotation_separator = "_",
-  reaction_annotations = c("pos", "neg"),
+  reaction_annotation_separator,
+  reaction_annotations,
   min_reaction_consistency = 1e-04,
   min_reaction_range = 1e-08,
   cluster_strength = 0.1
@@ -50,7 +54,13 @@ Description.
 \describe{
 \item{\code{...}}{A param.}
 
-\item{\code{metabolic_model}}{A param.}
+\item{\code{metadata_directory}}{A param.}
+
+\item{\code{gene_metadata_file}}{A param.}
+
+\item{\code{metabolite_metadata_file}}{A param.}
+
+\item{\code{reaction_metadata_file}}{A param.}
 
 \item{\code{reaction_consistencies_file}}{A param.}
 
@@ -78,6 +88,25 @@ An output.
 Description.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Analyzer$print(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{A param.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An output.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-repr"></a>}}
+\subsection{Method \code{repr()}}{
+Description.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analyzer$repr(...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

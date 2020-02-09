@@ -76,6 +76,23 @@ get_tabular_data_representation <- function(table, table_name, table_class, rows
 #' @description
 #' Description.
 #' 
+#' @param object_name A param.
+#' 
+#' @return An output.
+#' 
+#' @noRd
+get_object_representation <- function(object_name) {
+    object_representation <- stringr::str_glue(
+        "{object_name} object (...)"
+    )
+    object_representation
+}
+
+#' @title Title
+#' 
+#' @description
+#' Description.
+#' 
 #' @param string A param.
 #' @param indentation_level A param.
 #' @param indentation_style A param.
