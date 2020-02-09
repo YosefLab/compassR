@@ -34,6 +34,42 @@ MetabolicModel <- R6::R6Class(
             self$gene_metadata <- read_compass_metadata(gene_metadata_path)
             self$metabolite_metadata <- read_compass_metadata(metabolite_metadata_path)
             self$reaction_metadata <- read_compass_metadata(reaction_metadata_path)
+        },
+
+        #' @description
+        #' Description.
+        #'
+        #' @param ... A param.
+        #'
+        #' @return An output.
+        print = function(...) {
+            readable_representation <- paste(
+                "MetabolicModel:",
+                indent(get_tabular_data_representation(
+                    self$gene_metadata,
+                    "gene_metadata",
+                    "tibble",
+                    "genes",
+                    "fields"
+                )),
+                indent(get_tabular_data_representation(
+                    self$metabolite_metadata,
+                    "metabolite_metadata",
+                    "tibble",
+                    "metabolites",
+                    "fields"
+                )),
+                indent(get_tabular_data_representation(
+                    self$reaction_metadata,
+                    "reaction_metadata",
+                    "tibble",
+                    "reactions",
+                    "fields"
+                )),
+                "",
+                sep = "\n"
+            )
+            cat(readable_representation)
         }
 
     )

@@ -21,6 +21,7 @@ Description.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{MetabolicModel$new()}}
+\item \href{#method-print}{\code{MetabolicModel$print()}}
 \item \href{#method-clone}{\code{MetabolicModel$clone()}}
 }
 }
@@ -50,6 +51,25 @@ Description.
 \item{\code{metabolite_metadata_file}}{A param.}
 
 \item{\code{reaction_metadata_file}}{A param.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An output.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-print"></a>}}
+\subsection{Method \code{print()}}{
+Description.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{MetabolicModel$print(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{A param.}
 }
 \if{html}{\out{</div>}}
 }

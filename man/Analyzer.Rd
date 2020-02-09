@@ -14,6 +14,8 @@ Description.
 \item{\code{metareaction_consistencies}}{A field.}
 
 \item{\code{gene_expression_statistics}}{A field.}
+
+\item{\code{reaction_identifiers}}{A field.}
 }
 \if{html}{\out{</div>}}
 }
@@ -21,6 +23,7 @@ Description.
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-new}{\code{Analyzer$new()}}
+\item \href{#method-print}{\code{Analyzer$print()}}
 \item \href{#method-clone}{\code{Analyzer$clone()}}
 }
 }
@@ -34,6 +37,8 @@ Description.
   metabolic_model,
   reaction_consistencies_file,
   linear_gene_expression_matrix_file,
+  reaction_annotation_separator = "_",
+  reaction_annotations = c("pos", "neg"),
   min_reaction_consistency = 1e-04,
   min_reaction_range = 1e-08,
   cluster_strength = 0.1
@@ -51,11 +56,34 @@ Description.
 
 \item{\code{linear_gene_expression_matrix_file}}{A param.}
 
+\item{\code{reaction_annotation_separator}}{A param.}
+
+\item{\code{reaction_annotations}}{A param.}
+
 \item{\code{min_reaction_consistency}}{A param.}
 
 \item{\code{min_reaction_range}}{A param.}
 
 \item{\code{cluster_strength}}{A param.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An output.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-print"></a>}}
+\subsection{Method \code{print()}}{
+Description.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Analyzer$print(...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{A param.}
 }
 \if{html}{\out{</div>}}
 }

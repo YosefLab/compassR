@@ -7,6 +7,7 @@ Description: # TODO: Start writing the description here.
 Depends:
     R (>= 3.6.2),
 Imports:
+    magrittr,
     R6,
     tidyverse,
 License: # TODO

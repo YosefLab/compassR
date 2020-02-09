@@ -1,18 +1,17 @@
-#' Title
+#' @title Title
 #' 
-#' Description
+#' @description
+#' Description.
 #' 
-#' @param reaction_consistencies the first param
-#' @param cluster_strength the second param
-#' @param ... A param.
+#' @param reaction_consistencies A param.
+#' @param metareactions A param.
 #' 
-#' @return the output
+#' @return An output.
 #' 
-#' @importFrom dplyr %>%
+#' @importFrom magrittr %>%
 #' 
 #' @noRd
-get_metareaction_consistencies <- function(reaction_consistencies, ..., cluster_strength) {
-    metareactions <- get_metareactions(reaction_consistencies, cluster_strength)
+get_metareaction_consistencies <- function(reaction_consistencies, metareactions) {
     metareaction_consistencies <-
         reaction_consistencies %>%
         tibble::as_tibble(rownames = "reaction_id") %>%
@@ -24,26 +23,4 @@ get_metareaction_consistencies <- function(reaction_consistencies, ..., cluster_
         tibble::column_to_rownames("metareaction_id") %>%
         data.matrix()
     metareaction_consistencies
-}
-
-#' Title
-#' 
-#' Description
-#' 
-#' @param reaction_consistencies the first param
-#' @param cluster_strength the second param
-#' 
-#' @return the output
-#' 
-#' @importFrom dplyr %>%
-#' 
-#' @noRd
-get_metareactions <- function(reaction_consistencies, cluster_strength) {
-    pairwise_reaction_correlations <- cor(t(reaction_consistencies), method = "spearman")
-    pairwise_reaction_distances <- as.dist(1 - pairwise_reaction_correlations)
-    reaction_hierarchy <- hclust(pairwise_reaction_distances, method = "complete")
-    metareactions <-
-        cutree(reaction_hierarchy, h = cluster_strength) %>%
-        tibble::enframe(name = "reaction_id", value = "metareaction_id")
-    metareactions
 }

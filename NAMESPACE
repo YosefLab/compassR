@@ -3,3 +3,5 @@
 export(Analyzer)
 export(MetabolicModel)
 importFrom(dplyr,"%>%")
+importFrom(magrittr,"%<>%")
+importFrom(magrittr,"%>%")
