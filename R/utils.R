@@ -5,6 +5,8 @@
 #' @param expr the first param
 #' 
 #' @return the output
+#' 
+#' @noRd
 quiet <- function(expr) {
     suppressWarnings(suppressMessages(expr))
 }
@@ -18,6 +20,8 @@ quiet <- function(expr) {
 #' @param is_warning the third param
 #' 
 #' @return the output
+#' 
+#' @noRd
 alert_of_drop <- function(reactions_to_drop, cause, is_warning = FALSE) {
     if (any(reactions_to_drop)) {
         num_reactions_to_drop <- sum(reactions_to_drop)

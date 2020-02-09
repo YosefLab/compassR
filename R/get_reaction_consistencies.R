@@ -5,21 +5,23 @@
 #' @param reaction_consistencies_file the first param
 #' @param min_consistency the second param
 #' @param min_range the third param
+#' @param ... A param.
 #' 
 #' @return the output
 #' 
-#' @importFrom magrittr %>%
+#' @importFrom dplyr %>%
 #' 
-#' @export
-get_reaction_consistencies <- function(reaction_consistencies_file, min_consistency = 1e-4, min_range = 1e-10) {
+#' @noRd
+get_reaction_consistencies <- function(reaction_consistencies_file, ..., min_consistency, min_range) {
     reaction_consistencies <-
-        quiet(readr::read_tsv(reaction_consistencies_file)) %>%
-        dplyr::rename(reaction_name = 1) %>%
-        tibble::column_to_rownames("reaction_name") %>%
+        read_compass_matrix(reaction_consistencies_file) %>%
+        dplyr::rename(reaction_id = 1) %>%
+        tibble::column_to_rownames("reaction_id") %>%
         data.matrix() %>%
         drop_inconsistent_reactions(min_consistency) %>%
         drop_constant_reactions(min_range) %>%
-        log2() # TODO: Or should it be -log2(.)?
+        (function(x) { -log2(x) })() %>%
+        sweep(2, colMeans(.))
     reaction_consistencies
 }
 
@@ -31,6 +33,8 @@ get_reaction_consistencies <- function(reaction_consistencies_file, min_consiste
 #' @param min_consistency the second param
 #' 
 #' @return the output
+#' 
+#' @noRd
 drop_inconsistent_reactions <- function(reaction_consistencies, min_consistency) {
     reactions_inconsistent_for_any_cells <- apply(reaction_consistencies <= min_consistency, 1, any)
     reactions_inconsistent_for_all_cells <- apply(reaction_consistencies <= min_consistency, 1, all)
@@ -56,6 +60,8 @@ drop_inconsistent_reactions <- function(reaction_consistencies, min_consistency)
 #' @param min_range the second param
 #' 
 #' @return the output
+#' 
+#' @noRd
 drop_constant_reactions <- function(reaction_consistencies, min_range) {
     constant_reactions <- apply(reaction_consistencies, 1, function(x) { max(x) - min(x) < min_range })
     alert_of_drop(
