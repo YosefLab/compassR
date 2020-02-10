@@ -9,13 +9,15 @@ Description.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
+\item{\code{cell_metadata}}{A field.}
+
 \item{\code{gene_metadata}}{A field.}
 
 \item{\code{metabolite_metadata}}{A field.}
 
 \item{\code{reaction_metadata}}{A field.}
 
-\item{\code{compass_metadata}}{A field.}
+\item{\code{reaction_partitions}}{A field.}
 }
 \if{html}{\out{</div>}}
 }
@@ -34,23 +36,26 @@ Description.
 Description.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Metadata$new(
+  cell_metadata,
   gene_metadata,
   metabolite_metadata,
   reaction_metadata,
-  compass_metadata
+  reaction_partitions
 )}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
+\item{\code{cell_metadata}}{A param.}
+
 \item{\code{gene_metadata}}{A param.}
 
 \item{\code{metabolite_metadata}}{A param.}
 
 \item{\code{reaction_metadata}}{A param.}
 
-\item{\code{compass_metadata}}{A param.}
+\item{\code{reaction_partitions}}{A param.}
 }
 \if{html}{\out{</div>}}
 }

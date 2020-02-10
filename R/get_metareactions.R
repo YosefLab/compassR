@@ -18,6 +18,10 @@ get_metareactions <- function(reaction_consistencies, ..., cluster_strength) {
     reaction_hierarchy <- hclust(pairwise_reaction_distances, method = "complete")
     metareactions <-
         cutree(reaction_hierarchy, h = cluster_strength) %>%
-        tibble::enframe(name = "reaction_id", value = "metareaction_id")
+        tibble::enframe(name = "reaction_id", value = "metareaction_code") %>%
+        dplyr::transmute(
+            reaction_id = reaction_id,
+            metareaction_id = paste("group", metareaction_code, sep = "_")
+        )
     metareactions
 }

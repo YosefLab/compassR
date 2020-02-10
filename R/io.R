@@ -114,6 +114,25 @@ indent <- function(string, indentation_level = 1, indentation_style = "  ") {
 #' @description
 #' Description.
 #' 
+#' @param package_name A param.
+#' 
+#' @return An output.
+#' 
+#' @noRd
+require_suggested_package <- function(package_name) {
+    if (!requireNamespace(package_name, quietly = TRUE)) {
+        stop(
+            stringr::str_glue("Package \"{package_name}\" is required for this function. Please install it."),
+            call. = FALSE
+        )
+    }
+}
+
+#' @title Title
+#' 
+#' @description
+#' Description.
+#' 
 #' @param reactions_to_drop A param.
 #' @param cause A param.
 #' @param is_warning A param.

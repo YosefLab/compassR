@@ -4,8 +4,8 @@
 #' Description.
 #' 
 #' @export
-Analyzer <- R6::R6Class(
-    "Analyzer",
+CompassData <- R6::R6Class(
+    "CompassData",
     public = list(
 
         #' @field metadata A field.
@@ -24,6 +24,7 @@ Analyzer <- R6::R6Class(
         #' Description.
         #'
         #' @param metadata_directory A param.
+        #' @param cell_metadata_file A param.
         #' @param gene_metadata_file A param.
         #' @param metabolite_metadata_file A param.
         #' @param reaction_metadata_file A param.
@@ -37,7 +38,8 @@ Analyzer <- R6::R6Class(
         #' @param ... A param.
         #'
         #' @return An output.
-        initialize = function(..., metadata_directory, gene_metadata_file, metabolite_metadata_file, reaction_metadata_file, reaction_consistencies_file, linear_gene_expression_matrix_file, reaction_annotation_separator = NULL, reaction_annotations = NULL, min_reaction_consistency = 1e-4, min_reaction_range = 1e-8, cluster_strength = 0.1) {
+        initialize = function(..., metadata_directory, cell_metadata_file, gene_metadata_file, metabolite_metadata_file, reaction_metadata_file, reaction_consistencies_file, linear_gene_expression_matrix_file, reaction_annotation_separator = NULL, reaction_annotations = NULL, min_reaction_consistency = 1e-4, min_reaction_range = 1e-8, cluster_strength = 0.1) {
+            cell_metadata_path <- file.path(metadata_directory, cell_metadata_file)
             gene_metadata_path <- file.path(metadata_directory, gene_metadata_file)
             metabolite_metadata_path <- file.path(metadata_directory, metabolite_metadata_file)
             reaction_metadata_path <- file.path(metadata_directory, reaction_metadata_file)
@@ -59,10 +61,11 @@ Analyzer <- R6::R6Class(
                 reaction_consistencies,
                 metareactions
             )
+            cell_metadata <- read_compass_metadata(cell_metadata_path)
             gene_metadata <- read_compass_metadata(gene_metadata_path)
             metabolite_metadata <- read_compass_metadata(metabolite_metadata_path)
             reaction_metadata <- read_compass_metadata(reaction_metadata_path)
-            compass_metadata <-
+            reaction_partitions <-
                 annotated_reactions %>%
                 dplyr::left_join(
                     metareactions,
@@ -73,10 +76,11 @@ Analyzer <- R6::R6Class(
                 gene_metadata
             )
             self$metadata <- Metadata$new(
+                cell_metadata,
                 gene_metadata,
                 metabolite_metadata,
                 reaction_metadata,
-                compass_metadata
+                reaction_partitions
             )
             self$reaction_consistencies <- reaction_consistencies
             self$metareaction_consistencies <- metareaction_consistencies
@@ -101,7 +105,7 @@ Analyzer <- R6::R6Class(
         #' @return An output.
         repr = function(...) {
             readable_representation <- paste(
-                "Analyzer:",
+                "CompassData:",
                 indent(get_object_representation("metadata")),
                 indent(get_tabular_data_representation(
                     self$reaction_consistencies,

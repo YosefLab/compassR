@@ -8,6 +8,9 @@ Metadata <- R6::R6Class(
     "Metadata",
     public = list(
 
+        #' @field cell_metadata A field.
+        cell_metadata = NULL,
+
         #' @field gene_metadata A field.
         gene_metadata = NULL,
 
@@ -17,23 +20,25 @@ Metadata <- R6::R6Class(
         #' @field reaction_metadata A field.
         reaction_metadata = NULL,
 
-        #' @field compass_metadata A field.
-        compass_metadata = NULL,
+        #' @field reaction_partitions A field.
+        reaction_partitions = NULL,
 
         #' @description
         #' Description.
         #'
+        #' @param cell_metadata A param.
         #' @param gene_metadata A param.
         #' @param metabolite_metadata A param.
         #' @param reaction_metadata A param.
-        #' @param compass_metadata A param.
+        #' @param reaction_partitions A param.
         #'
         #' @return An output.
-        initialize = function(gene_metadata, metabolite_metadata, reaction_metadata, compass_metadata) {
+        initialize = function(cell_metadata, gene_metadata, metabolite_metadata, reaction_metadata, reaction_partitions) {
+            self$cell_metadata <- cell_metadata
             self$gene_metadata <- gene_metadata
             self$metabolite_metadata <- metabolite_metadata
             self$reaction_metadata <- reaction_metadata
-            self$compass_metadata <- compass_metadata
+            self$reaction_partitions <- reaction_partitions
         },
 
         #' @description
@@ -56,6 +61,13 @@ Metadata <- R6::R6Class(
             readable_representation <- paste(
                 "Metadata:",
                 indent(get_tabular_data_representation(
+                    self$cell_metadata,
+                    "cell_metadata",
+                    "tibble",
+                    "cells",
+                    "fields"
+                )),
+                indent(get_tabular_data_representation(
                     self$gene_metadata,
                     "gene_metadata",
                     "tibble",
@@ -77,8 +89,8 @@ Metadata <- R6::R6Class(
                     "fields"
                 )),
                 indent(get_tabular_data_representation(
-                    self$compass_metadata,
-                    "compass_metadata",
+                    self$reaction_partitions,
+                    "reaction_partitions",
                     "tibble",
                     "reactions",
                     "fields"
