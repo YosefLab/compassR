@@ -30,15 +30,15 @@ CompassData <- R6::R6Class(
         #' @param reaction_metadata_file A param.
         #' @param reaction_consistencies_file A param.
         #' @param linear_gene_expression_matrix_file A param.
-        #' @param reaction_annotation_separator A param.
-        #' @param reaction_annotations A param.
+        #' @param reaction_direction_separator A param.
+        #' @param reaction_directions A param.
         #' @param min_reaction_consistency A param.
         #' @param min_reaction_range A param.
         #' @param cluster_strength A param.
         #' @param ... A param.
         #'
         #' @return An output.
-        initialize = function(..., metadata_directory, cell_metadata_file, gene_metadata_file, metabolite_metadata_file, reaction_metadata_file, reaction_consistencies_file, linear_gene_expression_matrix_file, reaction_annotation_separator = NULL, reaction_annotations = NULL, min_reaction_consistency = 1e-4, min_reaction_range = 1e-8, cluster_strength = 0.1) {
+        initialize = function(..., metadata_directory, cell_metadata_file, gene_metadata_file, metabolite_metadata_file, reaction_metadata_file, reaction_consistencies_file, linear_gene_expression_matrix_file, reaction_direction_separator = "_", reaction_directions = c("pos", "neg"), min_reaction_consistency = 1e-4, min_reaction_range = 1e-8, cluster_strength = 0.1) {
             cell_metadata_path <- file.path(metadata_directory, cell_metadata_file)
             gene_metadata_path <- file.path(metadata_directory, gene_metadata_file)
             metabolite_metadata_path <- file.path(metadata_directory, metabolite_metadata_file)
@@ -48,10 +48,13 @@ CompassData <- R6::R6Class(
                 min_consistency = min_reaction_consistency,
                 min_range = min_reaction_range
             )
-            annotated_reactions <- get_annotated_reactions(
+            annotated_reactions <- get_annotations(
                 rownames(reaction_consistencies),
-                separator = reaction_annotation_separator,
-                annotations = reaction_annotations
+                separator = reaction_direction_separator,
+                annotations = reaction_directions,
+                id_col_name = "reaction_id",
+                unannotated_col_name = "undirected_reaction_id",
+                annotation_col_name = "direction"
             )
             metareactions <- get_metareactions(
                 reaction_consistencies,

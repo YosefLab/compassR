@@ -42,8 +42,8 @@ Description.
   reaction_metadata_file,
   reaction_consistencies_file,
   linear_gene_expression_matrix_file,
-  reaction_annotation_separator = NULL,
-  reaction_annotations = NULL,
+  reaction_direction_separator = "_",
+  reaction_directions = c("pos", "neg"),
   min_reaction_consistency = 1e-04,
   min_reaction_range = 1e-08,
   cluster_strength = 0.1
@@ -69,9 +69,9 @@ Description.
 
 \item{\code{linear_gene_expression_matrix_file}}{A param.}
 
-\item{\code{reaction_annotation_separator}}{A param.}
+\item{\code{reaction_direction_separator}}{A param.}
 
-\item{\code{reaction_annotations}}{A param.}
+\item{\code{reaction_directions}}{A param.}
 
 \item{\code{min_reaction_consistency}}{A param.}
 
