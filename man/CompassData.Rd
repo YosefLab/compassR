@@ -9,13 +9,23 @@ Description.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{metadata}}{A field.}
+\item{\code{settings}}{A field.}
 
 \item{\code{reaction_consistencies}}{A field.}
 
 \item{\code{metareaction_consistencies}}{A field.}
 
 \item{\code{gene_expression_statistics}}{A field.}
+
+\item{\code{cell_metadata}}{A field.}
+
+\item{\code{gene_metadata}}{A field.}
+
+\item{\code{metabolite_metadata}}{A field.}
+
+\item{\code{reaction_metadata}}{A field.}
+
+\item{\code{reaction_partitions}}{A field.}
 }
 \if{html}{\out{</div>}}
 }
@@ -33,51 +43,13 @@ Description.
 \subsection{Method \code{new()}}{
 Description.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{CompassData$new(
-  ...,
-  metadata_directory,
-  cell_metadata_file,
-  gene_metadata_file,
-  metabolite_metadata_file,
-  reaction_metadata_file,
-  reaction_consistencies_file,
-  linear_gene_expression_matrix_file,
-  reaction_direction_separator = "_",
-  reaction_directions = c("pos", "neg"),
-  min_reaction_consistency = 1e-04,
-  min_reaction_range = 1e-08,
-  cluster_strength = 0.1
-)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{CompassData$new(settings)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{A param.}
-
-\item{\code{metadata_directory}}{A param.}
-
-\item{\code{cell_metadata_file}}{A param.}
-
-\item{\code{gene_metadata_file}}{A param.}
-
-\item{\code{metabolite_metadata_file}}{A param.}
-
-\item{\code{reaction_metadata_file}}{A param.}
-
-\item{\code{reaction_consistencies_file}}{A param.}
-
-\item{\code{linear_gene_expression_matrix_file}}{A param.}
-
-\item{\code{reaction_direction_separator}}{A param.}
-
-\item{\code{reaction_directions}}{A param.}
-
-\item{\code{min_reaction_consistency}}{A param.}
-
-\item{\code{min_reaction_range}}{A param.}
-
-\item{\code{cluster_strength}}{A param.}
+\item{\code{settings}}{}
 }
 \if{html}{\out{</div>}}
 }

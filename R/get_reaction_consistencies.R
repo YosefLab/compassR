@@ -3,7 +3,7 @@
 #' @description
 #' Description.
 #' 
-#' @param reaction_consistencies_file A param.
+#' @param reaction_consistencies_path A param.
 #' @param min_consistency A param.
 #' @param min_range A param.
 #' @param ... A param.
@@ -13,9 +13,9 @@
 #' @importFrom magrittr %>%
 #' 
 #' @noRd
-get_reaction_consistencies <- function(reaction_consistencies_file, ..., min_consistency, min_range) {
+get_reaction_consistencies <- function(reaction_consistencies_path, ..., min_consistency, min_range) {
     reaction_consistencies <-
-        read_compass_matrix(reaction_consistencies_file) %>%
+        read_compass_matrix(reaction_consistencies_path) %>%
         dplyr::rename(reaction_id = 1) %>%
         tibble::column_to_rownames("reaction_id") %>%
         data.matrix() %>%

@@ -17,14 +17,14 @@ quiet <- function(expr) {
 #' @description
 #' Description.
 #' 
-#' @param file_name A param.
+#' @param file_path A param.
 #' 
 #' @return An output.
 #' 
 #' @noRd
-read_compass_metadata <- function(file_name) {
+read_compass_metadata <- function(file_path) {
     data <- quiet(readr::read_csv(
-            file_name,
+            file_path,
             col_types = readr::cols(.default = "c"),
             na = c("", "NA", "N/A")
         ))
@@ -36,18 +36,43 @@ read_compass_metadata <- function(file_name) {
 #' @description
 #' Description.
 #' 
-#' @param file_name A param.
+#' @param file_path A param.
 #' 
 #' @return An output.
 #' 
 #' @noRd
-read_compass_matrix <- function(file_name) {
+read_compass_matrix <- function(file_path) {
     data <- quiet(readr::read_tsv(
-            file_name,
+            file_path,
             col_types = readr::cols(X1 = "c", .default = "d"),
             na = c("", "NA", "N/A")
         ))
     data
+}
+
+#' @title Title
+#' 
+#' @description
+#' Description.
+#' 
+#' @param binding_name A param.
+#' @param binding_value A param.
+#' @param separator A param.
+#' @param ...
+#' 
+#' @return An output.
+#' 
+#' @importFrom magrittr %>% %<>%
+#' 
+#' @noRd
+get_binding_representation <- function(binding_name, binding_value, ..., separator = ", ") {
+    if (length(binding_value) > 1) {
+        binding_value %<>% paste(collapse = separator)
+    }
+    binding_representation <- stringr::str_glue(
+        "{binding_name}: {binding_value}"
+    )
+    binding_representation
 }
 
 #' @title Title
@@ -69,23 +94,6 @@ get_tabular_data_representation <- function(table, table_name, table_class, rows
         "{table_name} {table_class} ({dim(table)[1]} {rows} x {dim(table)[2]} {cols})"
     )
     tabular_data_representation
-}
-
-#' @title Title
-#' 
-#' @description
-#' Description.
-#' 
-#' @param object_name A param.
-#' 
-#' @return An output.
-#' 
-#' @noRd
-get_object_representation <- function(object_name) {
-    object_representation <- stringr::str_glue(
-        "{object_name} object (...)"
-    )
-    object_representation
 }
 
 #' @title Title

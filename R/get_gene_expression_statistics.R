@@ -3,23 +3,25 @@
 #' @description
 #' Description.
 #' 
-#' @param linear_gene_expression_matrix_file A param.
+#' @param linear_gene_expression_matrix_path A param.
 #' @param gene_metadata A param.
+#' @param gene_symbol_col_name A param.
+#' @param ... A param.
 #' 
 #' @return An output.
 #' 
 #' @importFrom magrittr %>%
 #' 
 #' @noRd
-get_gene_expression_statistics <- function(linear_gene_expression_matrix_file, gene_metadata) {
+get_gene_expression_statistics <- function(linear_gene_expression_matrix_path, gene_metadata, ..., gene_symbol_col_name) {
     linear_gene_expression_matrix <-
-        read_compass_matrix(linear_gene_expression_matrix_file) %>%
+        read_compass_matrix(linear_gene_expression_matrix_path) %>%
         dplyr::rename(gene = 1) %>%
         tibble::column_to_rownames("gene") %>%
         data.matrix()
     metabolic_genes <- intersect(
         rownames(linear_gene_expression_matrix),
-        gene_metadata$HGNC.symbol # TODO: Change this to gene.symbol once you split RECON2 into RECON2_Homo_Sapien and RECON2_Mus_Musculus
+        gene_metadata[[gene_symbol_col_name]]
     )
     total_expressions <- colSums(linear_gene_expression_matrix)
     metabolic_expressions <- colSums(linear_gene_expression_matrix[metabolic_genes,])
