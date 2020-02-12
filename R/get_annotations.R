@@ -25,10 +25,14 @@ get_annotations <- function(ids, ..., separator, annotations, id_col_name, unann
             separator = separator,
             annotation = annotations
         )
-        annotations <- matrix(nrow = 0, ncol = 3)
-        for (pattern in patterns) {
-            annotations %<>% rbind(na.omit(stringr::str_match(ids, pattern)))
-        }
+        annotations <- purrr::map_dfr(
+            ids,
+            function(id) {
+                stringr::str_match(id, patterns) %>%
+                na.omit() %>%
+                as.data.frame(stringsAsFactors = FALSE)
+            }
+        )
     }
     colnames(annotations) <- c(
         id_col_name,
@@ -40,3 +44,4 @@ get_annotations <- function(ids, ..., separator, annotations, id_col_name, unann
 }
 
 # TODO FYI: Assumes reaction_id is of the form {unique id}{separator}{one of several annotations}.
+# TODO FYI: Note that `separator` and all the elements of `annotations` are interpreted as RegEx.
