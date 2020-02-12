@@ -27,7 +27,7 @@ Description.
 
 \item{\code{gene_symbol_col_name}}{A field.}
 
-\item{\code{sample_col_name}}{A field.}
+\item{\code{cell_id_col_name}}{A field.}
 
 \item{\code{reaction_direction_separator}}{A field.}
 
@@ -66,7 +66,7 @@ Description.
   reaction_consistencies_file,
   linear_gene_expression_matrix_file,
   gene_symbol_col_name,
-  sample_col_name,
+  cell_id_col_name,
   reaction_direction_separator = "_",
   reaction_directions = c("pos", "neg"),
   min_reaction_consistency = 1e-04,
@@ -98,7 +98,7 @@ Description.
 
 \item{\code{gene_symbol_col_name}}{A param.}
 
-\item{\code{sample_col_name}}{A param.}
+\item{\code{cell_id_col_name}}{A param.}
 
 \item{\code{reaction_direction_separator}}{A param.}
 

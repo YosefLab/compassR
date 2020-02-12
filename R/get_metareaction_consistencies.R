@@ -8,7 +8,7 @@
 #' 
 #' @return An output.
 #' 
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% %<>%
 #' 
 #' @noRd
 get_metareaction_consistencies <- function(reaction_consistencies, metareactions) {
@@ -21,6 +21,6 @@ get_metareaction_consistencies <- function(reaction_consistencies, metareactions
         dplyr::summarize_all(mean) %>% # TODO: Pick a better summary statistic than the mean.
         dplyr::ungroup() %>%
         tibble::column_to_rownames("metareaction_id") %>%
-        data.matrix()
+        as.data.frame()
     metareaction_consistencies
 }

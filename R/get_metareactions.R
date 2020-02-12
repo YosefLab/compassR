@@ -9,7 +9,7 @@
 #' 
 #' @return An output.
 #' 
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% %<>%
 #' 
 #' @noRd
 get_metareactions <- function(reaction_consistencies, ..., cluster_strength) {

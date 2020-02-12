@@ -10,7 +10,7 @@
 #' 
 #' @return An output.
 #' 
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% %<>%
 #' 
 #' @noRd
 get_gene_expression_statistics <- function(linear_gene_expression_matrix_path, gene_metadata, ..., gene_symbol_col_name) {
@@ -18,7 +18,7 @@ get_gene_expression_statistics <- function(linear_gene_expression_matrix_path, g
         read_compass_matrix(linear_gene_expression_matrix_path) %>%
         dplyr::rename(gene = 1) %>%
         tibble::column_to_rownames("gene") %>%
-        data.matrix()
+        as.data.frame()
     metabolic_genes <- intersect(
         rownames(linear_gene_expression_matrix),
         gene_metadata[[gene_symbol_col_name]]

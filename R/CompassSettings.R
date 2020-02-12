@@ -35,8 +35,8 @@ CompassSettings <- R6::R6Class(
         #' @field gene_symbol_col_name A field.
         gene_symbol_col_name = NULL,
 
-        #' @field sample_col_name A field.
-        sample_col_name = NULL,
+        #' @field cell_id_col_name A field.
+        cell_id_col_name = NULL,
 
         #' @field reaction_direction_separator A field.
         reaction_direction_separator = NULL,
@@ -65,7 +65,7 @@ CompassSettings <- R6::R6Class(
         #' @param reaction_consistencies_file A param.
         #' @param linear_gene_expression_matrix_file A param.
         #' @param gene_symbol_col_name A param.
-        #' @param sample_col_name A param.
+        #' @param cell_id_col_name A param.
         #' @param reaction_direction_separator A param.
         #' @param reaction_directions A param.
         #' @param min_reaction_consistency A param.
@@ -85,7 +85,7 @@ CompassSettings <- R6::R6Class(
             reaction_consistencies_file,
             linear_gene_expression_matrix_file,
             gene_symbol_col_name,
-            sample_col_name,
+            cell_id_col_name,
             reaction_direction_separator = "_",
             reaction_directions = c("pos", "neg"),
             min_reaction_consistency = 1e-4,
@@ -101,7 +101,7 @@ CompassSettings <- R6::R6Class(
             self$reaction_consistencies_file <- reaction_consistencies_file
             self$linear_gene_expression_matrix_file <- linear_gene_expression_matrix_file
             self$gene_symbol_col_name <- gene_symbol_col_name
-            self$sample_col_name <- sample_col_name
+            self$cell_id_col_name <- cell_id_col_name
             self$reaction_direction_separator <- reaction_direction_separator
             self$reaction_directions <- reaction_directions
             self$min_reaction_consistency <- min_reaction_consistency
@@ -165,8 +165,8 @@ CompassSettings <- R6::R6Class(
                     self$gene_symbol_col_name
                 )),
                 indent(get_binding_representation(
-                    "Sample column name",
-                    self$sample_col_name
+                    "Cell ID column name",
+                    self$cell_id_col_name
                 )),
                 indent(get_binding_representation(
                     "Reaction direction separator",

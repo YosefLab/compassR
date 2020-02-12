@@ -132,25 +132,24 @@ CompassData <- R6::R6Class(
         repr = function(...) {
             readable_representation <- paste(
                 "CompassData:",
-                indent(get_object_representation("metadata")),
                 indent(get_tabular_data_representation(
                     self$reaction_consistencies,
                     "reaction_consistencies",
-                    "matrix",
+                    "data frame",
                     "reactions",
                     "cells"
                 )),
                 indent(get_tabular_data_representation(
                     self$metareaction_consistencies,
                     "metareaction_consistencies",
-                    "matrix",
+                    "data frame",
                     "metareactions",
                     "cells"
                 )),
                 indent(get_tabular_data_representation(
                     self$gene_expression_statistics,
                     "gene_expression_statistics",
-                    "matrix",
+                    "data frame",
                     "statistics",
                     "cells"
                 )),

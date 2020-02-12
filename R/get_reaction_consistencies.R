@@ -10,7 +10,7 @@
 #' 
 #' @return An output.
 #' 
-#' @importFrom magrittr %>%
+#' @importFrom magrittr %>% %<>%
 #' 
 #' @noRd
 get_reaction_consistencies <- function(reaction_consistencies_path, ..., min_consistency, min_range) {
@@ -18,7 +18,7 @@ get_reaction_consistencies <- function(reaction_consistencies_path, ..., min_con
         read_compass_matrix(reaction_consistencies_path) %>%
         dplyr::rename(reaction_id = 1) %>%
         tibble::column_to_rownames("reaction_id") %>%
-        data.matrix() %>%
+        as.data.frame() %>%
         drop_inconsistent_reactions(min_consistency = min_consistency) %>%
         drop_constant_reactions(min_range = min_range) %>%
         (function(x) { -log2(x) })() %>%

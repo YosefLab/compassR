@@ -60,7 +60,7 @@ CompassAnalyzer <- R6::R6Class(
             umap_components <- uwot::umap(t(consistencies_matrix), n_components = num_components)
             umap_components %<>% cbind(colnames(consistencies_matrix), .)
             colnames(umap_components) <- append(
-                self$settings$sample_col_name,
+                self$settings$cell_id_col_name,
                 paste("component", 1:num_components, sep = "_")
             )
             umap_components %<>% as_tibble()
