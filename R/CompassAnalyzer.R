@@ -121,7 +121,7 @@ CompassAnalyzer <- R6::R6Class(
                 ) %>%
                 tibble::as_tibble() %>%
                 dplyr::rename(!!reaction_or_metareaction_id_col_name := metareaction_id) %>%
-                dplyr::mutate(adjusted_p_value = p.adjust(. %>% dplyr::pull(p_value), method = "BH"))
+                dplyr::mutate(adjusted_p_value = p.adjust(dplyr::pull(., p_value), method = "BH"))
             wilcoxon_results
         }
 
