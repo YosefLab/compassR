@@ -22,8 +22,32 @@ quiet <- function(expr) {
 #' @return An output.
 #' 
 #' @noRd
+get_file_reader <- function(file_path) {
+    file_extension <- tail(strsplit(file_path, "\\.")[[1]], n = 1)
+    file_reader <- switch (
+        file_extension,
+        "csv" = readr::read_csv,
+        "tsv" = readr::read_tsv
+    )
+    if (is.null(file_reader)) {
+        warning(stringr::str_glue("File \"{file_path}\" has an unsupported file extension."))
+    }
+    file_reader
+}
+
+#' @title Title
+#' 
+#' @description
+#' Description.
+#' 
+#' @param file_path A param.
+#' 
+#' @return An output.
+#' 
+#' @noRd
 read_compass_metadata <- function(file_path) {
-    data <- quiet(readr::read_csv(
+    file_reader <- get_file_reader(file_path)
+    data <- quiet(file_reader(
             file_path,
             col_types = readr::cols(.default = "c"),
             na = c("", "NA", "N/A")
@@ -42,12 +66,77 @@ read_compass_metadata <- function(file_path) {
 #' 
 #' @noRd
 read_compass_matrix <- function(file_path) {
-    data <- quiet(readr::read_tsv(
+    file_reader <- get_file_reader(file_path)
+    data <- quiet(file_reader(
             file_path,
             col_types = readr::cols(X1 = "c", .default = "d"),
             na = c("", "NA", "N/A")
         ))
     data
+}
+
+#' @title Title
+#' 
+#' @description
+#' Description.
+#' 
+#' @param package_name A param.
+#' 
+#' @return An output.
+#' 
+#' @noRd
+require_suggested_package <- function(package_name) {
+    if (!requireNamespace(package_name, quietly = TRUE)) {
+        stop(
+            stringr::str_glue("Package \"{package_name}\" is required for this function. Please install it."),
+            call. = FALSE
+        )
+    }
+}
+
+#' @title Title
+#' 
+#' @description
+#' Description.
+#' 
+#' @param reactions_to_drop A param.
+#' @param cause A param.
+#' @param is_warning A param.
+#' 
+#' @return An output.
+#' 
+#' @noRd
+alert_of_drop <- function(reactions_to_drop, cause, is_warning = FALSE) {
+    if (any(reactions_to_drop)) {
+        num_reactions_to_drop <- sum(reactions_to_drop)
+        alert <- ifelse(is_warning, warning, message)
+        alert(paste(
+            num_reactions_to_drop,
+            cause,
+            "They will be dropped."
+        ))
+    }
+}
+
+#' @title Title
+#' 
+#' @description
+#' Description.
+#' 
+#' @param string A param.
+#' @param indentation_level A param.
+#' @param indentation_style A param.
+#' 
+#' @return An output.
+#' 
+#' @noRd
+indent <- function(string, indentation_level = 1, indentation_style = "  ") {
+    indented_string <- paste(
+        strrep("  ", indentation_level),
+        string,
+        sep = ""
+    )
+    indented_string
 }
 
 #' @title Title
@@ -94,68 +183,4 @@ get_tabular_data_representation <- function(table, table_name, table_class, rows
         "{table_name} {table_class} ({dim(table)[1]} {rows} x {dim(table)[2]} {cols})"
     )
     tabular_data_representation
-}
-
-#' @title Title
-#' 
-#' @description
-#' Description.
-#' 
-#' @param string A param.
-#' @param indentation_level A param.
-#' @param indentation_style A param.
-#' 
-#' @return An output.
-#' 
-#' @noRd
-indent <- function(string, indentation_level = 1, indentation_style = "  ") {
-    indented_string <- paste(
-        strrep("  ", indentation_level),
-        string,
-        sep = ""
-    )
-    indented_string
-}
-
-#' @title Title
-#' 
-#' @description
-#' Description.
-#' 
-#' @param package_name A param.
-#' 
-#' @return An output.
-#' 
-#' @noRd
-require_suggested_package <- function(package_name) {
-    if (!requireNamespace(package_name, quietly = TRUE)) {
-        stop(
-            stringr::str_glue("Package \"{package_name}\" is required for this function. Please install it."),
-            call. = FALSE
-        )
-    }
-}
-
-#' @title Title
-#' 
-#' @description
-#' Description.
-#' 
-#' @param reactions_to_drop A param.
-#' @param cause A param.
-#' @param is_warning A param.
-#' 
-#' @return An output.
-#' 
-#' @noRd
-alert_of_drop <- function(reactions_to_drop, cause, is_warning = FALSE) {
-    if (any(reactions_to_drop)) {
-        num_reactions_to_drop <- sum(reactions_to_drop)
-        alert <- ifelse(is_warning, warning, message)
-        alert(paste(
-            num_reactions_to_drop,
-            cause,
-            "They will be dropped."
-        ))
-    }
 }
