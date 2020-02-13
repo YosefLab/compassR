@@ -18,7 +18,7 @@ get_metareaction_consistencies <- function(reaction_consistencies, metareactions
         dplyr::inner_join(metareactions, by = "reaction_id") %>%
         dplyr::select(-reaction_id) %>%
         dplyr::group_by(metareaction_id) %>%
-        dplyr::summarize_all(mean) %>% # TODO: Pick a better summary statistic than the mean.
+        dplyr::summarize_all(mean) %>%
         dplyr::ungroup() %>%
         tibble::column_to_rownames("metareaction_id") %>%
         as.data.frame()

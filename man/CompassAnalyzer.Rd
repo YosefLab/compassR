@@ -20,6 +20,7 @@ Description.
 \item \href{#method-print}{\code{CompassAnalyzer$print()}}
 \item \href{#method-repr}{\code{CompassAnalyzer$repr()}}
 \item \href{#method-get_umap_components}{\code{CompassAnalyzer$get_umap_components()}}
+\item \href{#method-conduct_wilcoxon_test}{\code{CompassAnalyzer$conduct_wilcoxon_test()}}
 \item \href{#method-clone}{\code{CompassAnalyzer$clone()}}
 }
 }
@@ -100,6 +101,39 @@ Description.
 \item{\code{...}}{A param.}
 
 \item{\code{num_components}}{A param.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+An output.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-conduct_wilcoxon_test"></a>}}
+\subsection{Method \code{conduct_wilcoxon_test()}}{
+Description.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{CompassAnalyzer$conduct_wilcoxon_test(
+  consistencies_matrix,
+  group_A_cell_ids,
+  group_B_cell_ids,
+  ...,
+  reaction_or_metareaction_id_col_name = "metareaction_id"
+)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{consistencies_matrix}}{A param.}
+
+\item{\code{group_A_cell_ids}}{A param.}
+
+\item{\code{group_B_cell_ids}}{A param.}
+
+\item{\code{...}}{A param.}
+
+\item{\code{reaction_or_metareaction_id_col_name}}{A param.}
 }
 \if{html}{\out{</div>}}
 }

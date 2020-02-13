@@ -65,6 +65,64 @@ CompassAnalyzer <- R6::R6Class(
             )
             umap_components %<>% as_tibble()
             umap_components
+        },
+
+        #' @description
+        #' Description.
+        #' 
+        #' @param consistencies_matrix A param.
+        #' @param group_A_cell_ids A param.
+        #' @param group_B_cell_ids A param.
+        #' @param reaction_or_metareaction_id_col_name A param.
+        #' @param ... A param.
+        #' 
+        #' @return An output.
+        #' 
+        #' @importFrom magrittr %>% %<>%
+        conduct_wilcoxon_test = function(consistencies_matrix, group_A_cell_ids, group_B_cell_ids, ..., reaction_or_metareaction_id_col_name = "metareaction_id") {
+            if (0 < length(intersect(group_A_cell_ids, group_B_cell_ids))) {
+                message("Groups A and B are not mutually exclusive. Continuing anyways ...")
+            }
+            group_A_values_per_metareaction <-
+                consistencies_matrix %>%
+                t() %>%
+                tibble::as_tibble(rownames = self$settings$cell_id_col_name) %>%
+                dplyr::right_join(
+                    tibble::tibble(!!self$settings$cell_id_col_name := group_A_cell_ids),
+                    by = self$settings$cell_id_col_name
+                ) %>%
+                as.data.frame()
+            group_B_values_per_metareaction <-
+                consistencies_matrix %>%
+                t() %>%
+                tibble::as_tibble(rownames = self$settings$cell_id_col_name) %>%
+                dplyr::right_join(
+                    tibble::tibble(!!self$settings$cell_id_col_name := group_B_cell_ids),
+                    by = self$settings$cell_id_col_name
+                ) %>%
+                as.data.frame()
+            metareaction_ids <- rownames(consistencies_matrix)
+            wilcoxon_results <-
+                purrr::map_dfr(
+                    metareaction_ids,
+                    function(metareaction_id) {
+                        group_A_values <- group_A_values_per_metareaction[,metareaction_id]
+                        group_B_values <- group_B_values_per_metareaction[,metareaction_id]
+                        wilcoxon_result_obj <- wilcox.test(group_A_values, group_B_values)
+                        wilcoxon_result_tbl <- data.frame(
+                            metareaction_id = metareaction_id,
+                            wilcoxon_statistic = wilcoxon_result_obj$statistic,
+                            cohens_d = cohens_d(group_A_values, group_B_values),
+                            p_value = wilcoxon_result_obj$p.value,
+                            stringsAsFactors = FALSE
+                        )
+                        wilcoxon_result_tbl
+                    }
+                ) %>%
+                tibble::as_tibble() %>%
+                dplyr::rename(!!reaction_or_metareaction_id_col_name := metareaction_id) %>%
+                dplyr::mutate(adjusted_p_value = p.adjust(. %>% dplyr::pull(p_value), method = "BH"))
+            wilcoxon_results
         }
 
     )
