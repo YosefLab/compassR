@@ -30,7 +30,10 @@ get_file_reader <- function(file_path) {
         "tsv" = readr::read_tsv
     )
     if (is.null(file_reader)) {
-        warning(stringr::str_glue("File \"{file_path}\" has an unsupported file extension."))
+        stop(
+            stringr::str_glue("File \"{file_path}\" has an unsupported file extension."),
+            call. = FALSE
+        )
     }
     file_reader
 }
