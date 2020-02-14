@@ -32,8 +32,8 @@ CompassSettings <- R6::R6Class(
         #' @field linear_gene_expression_matrix_file A field.
         linear_gene_expression_matrix_file = NULL,
 
-        #' @field gene_symbol_col_name A field.
-        gene_symbol_col_name = NULL,
+        #' @field gene_id_col_name A field.
+        gene_id_col_name = NULL,
 
         #' @field cell_id_col_name A field.
         cell_id_col_name = NULL,
@@ -64,7 +64,7 @@ CompassSettings <- R6::R6Class(
         #' @param cell_metadata_file A param.
         #' @param reaction_consistencies_file A param.
         #' @param linear_gene_expression_matrix_file A param.
-        #' @param gene_symbol_col_name A param.
+        #' @param gene_id_col_name A param.
         #' @param cell_id_col_name A param.
         #' @param reaction_direction_separator A param.
         #' @param reaction_directions A param.
@@ -84,7 +84,7 @@ CompassSettings <- R6::R6Class(
             cell_metadata_file,
             reaction_consistencies_file,
             linear_gene_expression_matrix_file,
-            gene_symbol_col_name,
+            gene_id_col_name,
             cell_id_col_name,
             reaction_direction_separator = "_",
             reaction_directions = c("pos", "neg"),
@@ -100,7 +100,7 @@ CompassSettings <- R6::R6Class(
             self$cell_metadata_file <- cell_metadata_file
             self$reaction_consistencies_file <- reaction_consistencies_file
             self$linear_gene_expression_matrix_file <- linear_gene_expression_matrix_file
-            self$gene_symbol_col_name <- gene_symbol_col_name
+            self$gene_id_col_name <- gene_id_col_name
             self$cell_id_col_name <- cell_id_col_name
             self$reaction_direction_separator <- reaction_direction_separator
             self$reaction_directions <- reaction_directions
@@ -162,7 +162,7 @@ CompassSettings <- R6::R6Class(
                 )),
                 indent(get_binding_representation(
                     "Gene symbol column name",
-                    self$gene_symbol_col_name
+                    self$gene_id_col_name
                 )),
                 indent(get_binding_representation(
                     "Cell ID column name",

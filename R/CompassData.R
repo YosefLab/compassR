@@ -100,7 +100,7 @@ CompassData <- R6::R6Class(
             gene_expression_statistics <- get_gene_expression_statistics(
                 linear_gene_expression_matrix_path,
                 gene_metadata,
-                gene_symbol_col_name = settings$gene_symbol_col_name
+                gene_id_col_name = settings$gene_id_col_name
             )
             self$settings <- settings
             self$reaction_consistencies <- reaction_consistencies

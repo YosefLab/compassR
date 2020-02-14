@@ -25,7 +25,7 @@ Description.
 
 \item{\code{linear_gene_expression_matrix_file}}{A field.}
 
-\item{\code{gene_symbol_col_name}}{A field.}
+\item{\code{gene_id_col_name}}{A field.}
 
 \item{\code{cell_id_col_name}}{A field.}
 
@@ -65,7 +65,7 @@ Description.
   cell_metadata_file,
   reaction_consistencies_file,
   linear_gene_expression_matrix_file,
-  gene_symbol_col_name,
+  gene_id_col_name,
   cell_id_col_name,
   reaction_direction_separator = "_",
   reaction_directions = c("pos", "neg"),
@@ -96,7 +96,7 @@ Description.
 
 \item{\code{linear_gene_expression_matrix_file}}{A param.}
 
-\item{\code{gene_symbol_col_name}}{A param.}
+\item{\code{gene_id_col_name}}{A param.}
 
 \item{\code{cell_id_col_name}}{A param.}
 
