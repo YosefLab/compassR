@@ -118,7 +118,7 @@ Description.
   group_A_cell_ids,
   group_B_cell_ids,
   ...,
-  reaction_or_metareaction_id_col_name = "metareaction_id"
+  for_metareactions = TRUE
 )}\if{html}{\out{</div>}}
 }
 
@@ -133,7 +133,7 @@ Description.
 
 \item{\code{...}}{A param.}
 
-\item{\code{reaction_or_metareaction_id_col_name}}{A param.}
+\item{\code{for_metareactions}}{A param.}
 }
 \if{html}{\out{</div>}}
 }

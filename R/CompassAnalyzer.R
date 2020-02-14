@@ -73,13 +73,13 @@ CompassAnalyzer <- R6::R6Class(
         #' @param consistencies_matrix A param.
         #' @param group_A_cell_ids A param.
         #' @param group_B_cell_ids A param.
-        #' @param reaction_or_metareaction_id_col_name A param.
+        #' @param for_metareactions A param.
         #' @param ... A param.
         #' 
         #' @return An output.
         #' 
         #' @importFrom magrittr %>% %<>%
-        conduct_wilcoxon_test = function(consistencies_matrix, group_A_cell_ids, group_B_cell_ids, ..., reaction_or_metareaction_id_col_name = "metareaction_id") {
+        conduct_wilcoxon_test = function(consistencies_matrix, group_A_cell_ids, group_B_cell_ids, ..., for_metareactions = TRUE) {
             if (0 < length(intersect(group_A_cell_ids, group_B_cell_ids))) {
                 message("Groups A and B are not mutually exclusive. Continuing anyways ...")
             }
@@ -120,8 +120,10 @@ CompassAnalyzer <- R6::R6Class(
                     }
                 ) %>%
                 tibble::as_tibble() %>%
-                dplyr::rename(!!reaction_or_metareaction_id_col_name := metareaction_id) %>%
                 dplyr::mutate(adjusted_p_value = p.adjust(dplyr::pull(., p_value), method = "BH"))
+            if (!for_metareactions) {
+                wilcoxon_results %<>% dplyr::rename(reaction_id = metareaction_id)
+            }
             wilcoxon_results
         }
 
