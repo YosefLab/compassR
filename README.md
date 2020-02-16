@@ -9,7 +9,7 @@ This package provides a specialized pipeline for postprocessing the single-cell 
 
 You can accomplish both of these steps by running the following R code:
 
-```
+```R
 # Install devtools from CRAN.
 install.packages("devtools")
 
