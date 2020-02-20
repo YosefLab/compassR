@@ -2,7 +2,7 @@
 
 This package provides a specialized pipeline for the analysis and interpretation of cell-to-cell metabolic heterogeneity based on the single-cell metabolic reaction consistency matrix produced by the [COMPASS algorithm](https://github.com/YosefLab/Compass). This package also includes a suite of expressive utility functions for conducting statistical analyses building thereupon.
 
-Note: Compass is particularly useful when the number of observations (RNA-Seq libraries, microarrays etc.) is large, which is the case in single-cell RNA-Seq. For this reason, the presentation of the algorith assumes a single-cell dataset. However, Compass can also be applied to bulk RNA data.
+Since COMPASS was originally designed for analyzing single-cell RNA-seq data, the presentation of the algorithm assumes a single-cell data set. However, it can also be applied to bulk RNA data. Note only that it is best suited to applications wherein the number of observations (e.g. RNA-seq libraries or microarrays) is large.
 
 ## Installation
 
