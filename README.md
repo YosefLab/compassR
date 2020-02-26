@@ -42,7 +42,7 @@ compass_settings <- CompassSettings$new(
 )
 ```
 
-Note that the `CompassSettings` constructor can also accept parameters specifying gene, metabolite, and reaction metadata files constituting a general metabolic model. By omitting these parameters, we opt to use the version of the RECON2 model that ships with the `compassanalytics` package. For more information on `CompassSettings`' parameters, please refer to [the wiki](https://github.com/YosefLab/compassanalytics/wiki).
+Note that the `CompassSettings` constructor can also accept parameters specifying the gene, metabolite, and reaction metadata files that constitute a metabolic model. By omitting these parameters, we opt to use the version of the RECON2 model that ships with the `compassanalytics` package. For more information on `CompassSettings`' parameters, please refer to [the wiki](https://github.com/YosefLab/compassanalytics/wiki).
 
 The next step is to create a `CompassData` object, like so:
 
