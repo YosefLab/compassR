@@ -36,18 +36,13 @@ In order to make use of the `compassanalytics` package, you first have to specif
 
 ```R
 compass_settings <- CompassSettings$new(
-    metabolic_model_directory = system.file("extdata", "RECON2", package = "compassanalytics"),
-        gene_metadata_file = "gene_metadata.csv",
-        metabolite_metadata_file = "metabolite_metadata.csv",
-        reaction_metadata_file = "reaction_metadata.csv",
     user_data_directory = system.file("extdata", "Th17", package = "compassanalytics"),
-        cell_metadata_file = "cell_metadata.csv", # 
-        reaction_consistencies_file = "reactions.tsv", # The output of the COMPASS
-        linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
     cell_id_col_name = "cell_id",
     gene_id_col_name = "HGNC.symbol"
 )
 ```
+
+Note that the `CompassSettings` constructor can also accept parameters specifying gene, metabolite, and reaction metadata files constituting a general metabolic model. By omitting these parameters, we opt to use the version of the RECON2 model that ships with the `compassanalytics` package. For more information on `CompassSettings`' parameters, please refer to [the wiki](https://github.com/YosefLab/compassanalytics/wiki).
 
 The next step is to create a `CompassData` object, like so:
 
