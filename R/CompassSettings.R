@@ -1,8 +1,8 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @export
 CompassSettings <- R6::R6Class(
     "CompassSettings",
@@ -76,14 +76,14 @@ CompassSettings <- R6::R6Class(
         #' @return An output.
         initialize = function(
             ...,
-            metabolic_model_directory,
-            gene_metadata_file,
-            metabolite_metadata_file,
-            reaction_metadata_file,
+            metabolic_model_directory = system.file("extdata", "RECON2", package = "compassanalytics", mustWork = TRUE),
+            gene_metadata_file = "gene_metadata.csv",
+            metabolite_metadata_file = "metabolite_metadata.csv",
+            reaction_metadata_file = "reaction_metadata.csv",
             user_data_directory,
-            cell_metadata_file,
-            reaction_consistencies_file,
-            linear_gene_expression_matrix_file,
+            cell_metadata_file = "cell_metadata.csv",
+            reaction_consistencies_file = "reactions.tsv",
+            linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
             gene_id_col_name,
             cell_id_col_name,
             reaction_direction_separator = "_",
