@@ -1,5 +1,5 @@
 Package: compassanalytics
-Version: 0.0.0.9000
+Version: 1.0.0
 Title: A Library for Conducting Analyses on COMPASS Data
 Description: This package provides a specialized pipeline for the analysis and
     interpretation of cell-to-cell metabolic heterogeneity based on the single-
