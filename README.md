@@ -58,11 +58,11 @@ This line may take a minute to run. Under the hood, it's postprocessing the resu
 | `gene_metadata`              | Tibble     | The gene metadata from the metabolic model (RECON2, by default). |
 | `metabolite_metadata`        | Tibble     | The metabolite metadata from the metabolic model (RECON2, by default). |
 | `reaction_metadata`          | Tibble     | The reaction metadata from the metabolic model (RECON2, by default). |
-| `reaction_partitions`        | Tibble     | Each row describes a reaction and which metareaction it belongs to. (A metareaction is a group of similar reactions.) |
+| `reaction_partitions`        | Tibble     | Each row describes a reaction and which metareaction (i.e. reaction group) it belongs to. |
 
 ### Exploring the statistical analysis suite
 
-To conduct statistical analyses on the aforementioned data, make a `CompassAnalyzer` object:
+Now we're ready to start our analysis! We begin by making a `CompassAnalyzer` object.
 
 ```R
 compass_analyzer <- CompassAnalyzer$new(compass_settings)
