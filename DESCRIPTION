@@ -4,9 +4,9 @@ Title: A Library for Conducting Analyses on COMPASS Data
 Description: This package provides a specialized pipeline for the analysis and
     interpretation of cell-to-cell metabolic heterogeneity based on the single-
     cell metabolic reaction consistency matrix produced by the COMPASS algorithm
-    (\url{https://github.com/YosefLab/Compass}). This package also includes a
-    suite of expressive utility functions for conducting statistical analyses
-    building thereupon.
+    (\url{https://github.com/YosefLab/Compass}). It also includes a suite of
+    expressive utility functions for conducting statistical analyses building
+    thereupon.
 Depends:
     R (>= 3.6.2),
 Imports:
