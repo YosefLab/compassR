@@ -1,4 +1,4 @@
-# compassanalytics
+# compassR
 
 This package provides a specialized pipeline for the analysis and interpretation of cell-to-cell metabolic heterogeneity based on the single-cell metabolic reaction consistency matrix produced by the [COMPASS algorithm](https://github.com/YosefLab/Compass). It also includes a suite of expressive utility functions for conducting statistical analyses building thereupon.
 
@@ -7,7 +7,7 @@ Since COMPASS was originally designed for analyzing single-cell RNA-seq data, th
 ## Installation
 
 1. Make sure you have installed [the `devtools` package](https://github.com/r-lib/devtools) from CRAN.
-1. Run `devtools::install_github("YosefLab/compassanalytics")`.
+1. Run `devtools::install_github("YosefLab/compassR")`.
 
 You can accomplish both of these steps by running the following R code.
 
@@ -15,13 +15,13 @@ You can accomplish both of these steps by running the following R code.
 # Install devtools from CRAN.
 install.packages("devtools")
 
-# Install compassanalytics from YosefLab.
-devtools::install_github("YosefLab/compassanalytics")
+# Install compassR from YosefLab.
+devtools::install_github("YosefLab/compassR")
 ```
 
 ## Usage
 
-In the following tutorial, we'll explore the Th17 cell data set ([Wagner et al.](https://www.biorxiv.org/content/10.1101/2020.01.23.912717v1); [Wang et al.](https://www.biorxiv.org/content/10.1101/2020.01.23.911966v1)) that ships with the package. It will help you get acquainted with the basics, while skipping over some of the finer details; if you're an advanced user looking for the full documentation, please refer to the [the wiki](https://github.com/YosefLab/compassanalytics/wiki) instead.
+In the following tutorial, we'll explore the Th17 cell data set ([Wagner et al.](https://www.biorxiv.org/content/10.1101/2020.01.23.912717v1); [Wang et al.](https://www.biorxiv.org/content/10.1101/2020.01.23.911966v1)) that ships with the package. It will help you get acquainted with the basics, while skipping over some of the finer details; if you're an advanced user looking for the full documentation, please refer to the [the wiki](https://github.com/YosefLab/compassR/wiki) instead.
 
 ### Loading your data
 
@@ -29,7 +29,7 @@ Our first step is to specify a few settings via a `CompassSettings` object.
 
 ```R
 compass_settings <- CompassSettings$new(
-    user_data_directory = system.file("extdata", "Th17", package = "compassanalytics"),
+    user_data_directory = system.file("extdata", "Th17", package = "compassR"),
     cell_id_col_name = "cell_id",
     gene_id_col_name = "HGNC.symbol"
 )
