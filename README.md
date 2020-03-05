@@ -21,7 +21,7 @@ devtools::install_github("YosefLab/compassanalytics")
 
 ## Usage
 
-In the following tutorial, we'll explore the [Th17 cell data set](https://www.biorxiv.org/content/10.1101/2020.01.23.912717v1) that ships with the package. It will help you get acquainted with the basics, while skipping over some of the finer details; if you're an advanced user looking for the full documentation, please refer to the [the wiki](https://github.com/YosefLab/compassanalytics/wiki) instead.
+In the following tutorial, we'll explore the Th17 cell data set ([Wagner et al.](https://www.biorxiv.org/content/10.1101/2020.01.23.912717v1); [Wang et al.](https://www.biorxiv.org/content/10.1101/2020.01.23.911966v1)) that ships with the package. It will help you get acquainted with the basics, while skipping over some of the finer details; if you're an advanced user looking for the full documentation, please refer to the [the wiki](https://github.com/YosefLab/compassanalytics/wiki) instead.
 
 ### Loading your data
 
@@ -54,7 +54,7 @@ This line may take a minute to run. Under the hood, it's postprocessing the resu
 | `reaction_consistencies`     | Data frame | Each row is a reaction and each column is a cell. `reaction_consistencies[i, j]` is the consitency (or "compatibility") between reaction `i` and cell `j`. |
 | `metareaction_consistencies` | Data frame | Each row is a metareaction and each column is a cell. `metareaction_consistencies[i, j]` is the consistency (or "compatibility") between metareaction `i` and cell `j`. |
 | `gene_expression_statistics` | Data frame | Each column describes a cell's total expression, metabolic expression, and metabolic activity. |
-| `cell_metadata`              | Tibble     | The cell metadata from `"cell_metadata.csv"`. In this example it's the Th17 cell data from the paper linked above. |
+| `cell_metadata`              | Tibble     | The cell metadata from `"cell_metadata.csv"`. In this example it's the Th17 cell data from the papers linked above. |
 | `gene_metadata`              | Tibble     | The gene metadata from the metabolic model (RECON2, by default). |
 | `metabolite_metadata`        | Tibble     | The metabolite metadata from the metabolic model (RECON2, by default). |
 | `reaction_metadata`          | Tibble     | The reaction metadata from the metabolic model (RECON2, by default). |
