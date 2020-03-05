@@ -21,16 +21,29 @@ devtools::install_github("YosefLab/compassanalytics")
 
 ## Usage
 
-The following tutorial explains how to use `compassanalytics` to explore a small data set included with the package. If you plan on following along, you should first load `compassanalytics` and `tidyverse`:
-
-```R
-library(compassanalytics)
-library(tidyverse)
-```
-
-For documentation and more in-depth examples, please refer to [the wiki](https://github.com/YosefLab/compassanalytics/wiki).
+In the following tutorial, we'll explore the [Th17 cell data set](https://www.biorxiv.org/content/10.1101/2020.01.23.912717v1) that ships with the package. It will help you get acquainted with the basics, while skipping over some of the finer details; if you're an advanced user looking for the full documentation, please refer to the [the wiki](https://github.com/YosefLab/compassanalytics/wiki) instead.
 
 ### Loading your data
+
+Our first step is to specify a few settings via a `CompassSettings` object. In general, that'll look something like this:
+
+```R
+compass_settings <- CompassSettings$new(
+    user_data_directory = system.file("extdata", "Th17", package = "compassanalytics"),
+    cell_id_col_name = "cell_id",
+    gene_id_col_name = "HGNC.symbol"
+)
+```
+
+What do each of these parameters correspond to?
+
+* `user_data_directory` is the path to the directory that contains the data you want to analyze. This directory should include files named `"cell_metadata.csv"`, `"reactions.tsv"`, and `"linear_gene_expression_matrix.tsv"`.
+* `cell_id_col_name` is the column in `"cell_metadata.csv"` that uniquely identifies each cell in your data set.
+* And finally, `gene_id_col_name` is the column in the metabolic model's `"gene_metadata that uniquely identifies the genes you're interested in. By default, analyses will use the version of RECON2 included in the package
+
+
+continue editing here
+
 
 In order to make use of the `compassanalytics` package, you first have to specify a few settings in a `CompassSettings` object. Here's an example, tailored to a basic analysis of the included Th17 cell data:
 
