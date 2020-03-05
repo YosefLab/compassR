@@ -35,29 +35,16 @@ compass_settings <- CompassSettings$new(
 )
 ```
 
-What do each of these parameters correspond to?
+But what do each of these parameters correspond to?
 
 * `user_data_directory` is the path to the directory that contains the data you want to analyze. This directory should include files named `"cell_metadata.csv"`, `"reactions.tsv"`, and `"linear_gene_expression_matrix.tsv"`.
-* `cell_id_col_name` is the column in `"cell_metadata.csv"` that uniquely identifies each cell in your data set.
-* And finally, `gene_id_col_name` is the column in the metabolic model's `"gene_metadata that uniquely identifies the genes you're interested in. By default, analyses will use the version of RECON2 included in the package
+* `cell_id_col_name` is the column in `"cell_metadata.csv"` that uniquely identifies the cells in your data set.
+* And finally, `gene_id_col_name` is the column in `"gene_metadata.csv"` that uniquely identifies the genes you're interested in. (Note that you don't have to provide `"gene_metadata.csv"` unless you're an advanced user; by default, analyses will use the one included in the modified version of RECON2 that comes pre-installed with the package. In the majority of cases, you just need to know that you can use `"HGNC.symbol"` to specify human genes or `"MGI.symbol"` to specify mouse genes.)
 
 
-continue editing here
 
 
-In order to make use of the `compassanalytics` package, you first have to specify a few settings in a `CompassSettings` object. Here's an example, tailored to a basic analysis of the included Th17 cell data:
 
-```R
-compass_settings <- CompassSettings$new(
-    user_data_directory = system.file("extdata", "Th17", package = "compassanalytics"),
-    cell_id_col_name = "cell_id",
-    gene_id_col_name = "HGNC.symbol"
-)
-```
-
-Note that the `CompassSettings` constructor can also accept parameters specifying the gene, metabolite, and reaction metadata files that define the metabolic model to be used in the analysis. By omitting these parameters, we opt to use the version of the RECON2 model that ships with the `compassanalytics` package.
-
-Note also that the `user_data_directory` should contain files `cell_metadata.csv`, `reaction_consistencies.tsv`, and `linear_gene_expression_matrix.tsv`. For more information on the contents of these files please refer to [the wiki](https://github.com/YosefLab/compassanalytics/wiki).
 
 The next step is to create a `CompassData` object, like so:
 
