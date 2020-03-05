@@ -9,7 +9,7 @@ Since COMPASS was originally designed for analyzing single-cell RNA-seq data, th
 1. Make sure you have installed [the `devtools` package](https://github.com/r-lib/devtools) from CRAN.
 1. Run `devtools::install_github("YosefLab/compassanalytics")`.
 
-You can accomplish both of these steps by running the following R code:
+You can accomplish both of these steps by running the following R code.
 
 ```R
 # Install devtools from CRAN.
@@ -25,7 +25,7 @@ In the following tutorial, we'll explore the [Th17 cell data set](https://www.bi
 
 ### Loading your data
 
-Our first step is to specify a few settings via a `CompassSettings` object. In general, that'll look something like this:
+Our first step is to specify a few settings via a `CompassSettings` object.
 
 ```R
 compass_settings <- CompassSettings$new(
@@ -35,33 +35,30 @@ compass_settings <- CompassSettings$new(
 )
 ```
 
-But what do each of these parameters correspond to?
+There are 3 important parameters.
 
 * `user_data_directory` is the path to the directory that contains the data you want to analyze. This directory should include files named `"cell_metadata.csv"`, `"reactions.tsv"`, and `"linear_gene_expression_matrix.tsv"`.
 * `cell_id_col_name` is the column in `"cell_metadata.csv"` that uniquely identifies the cells in your data set.
-* And finally, `gene_id_col_name` is the column in `"gene_metadata.csv"` that uniquely identifies the genes you're interested in. (Note that you don't have to provide `"gene_metadata.csv"` unless you're an advanced user; by default, analyses will use the one included in the modified version of RECON2 that comes pre-installed with the package. In the majority of cases, you just need to know that you can use `"HGNC.symbol"` to specify human genes or `"MGI.symbol"` to specify mouse genes.)
+* And finally, `gene_id_col_name` is the column in `"gene_metadata.csv"` that uniquely identifies the genes you're interested in. Note that you do not have to provide this file unless you're an advanced user. By default, analyses will just use the one included in the version of RECON2 that comes with the package -- in which case you can use `"HGNC.symbol"` for human genes or `"MGI.symbol"` for mouse genes.
 
-
-
-
-
-
-The next step is to create a `CompassData` object, like so:
+Now we can load our data by creating a `CompassData` object.
 
 ```R
 compass_data <- CompassData$new(compass_settings)
 ```
 
-Upon instantiation, it will postprocess the results of the COMPASS algorithm and populate these tables:
+This line may take a minute to run. Under the hood, it's postprocessing the results of the COMPASS algorithm and populating a few tables that we'll find useful for our analyses later on:
 
-* `compass_data$reaction_consistencies`: A data frame of per-cell reaction consistencies.
-* `compass_data$metareaction_consistencies`: A data frame of per-cell metareaction consistencies.
-* `compass_data$gene_expression_statistics`: A data frame describing the total expression, metabolic expression, and metabolic activity of each cell.
-* `compass_data$cell_metadata`: A tibble containing cell metadata specific to the Th17 data set.
-* `compass_data$gene_metadata`: A tibble containing gene metadata specific to the RECON2 metabolic model.
-* `compass_data$metabolite_metadata`: A tibble containing metabolite metadata specific to the RECON2 metabolic model.
-* `compass_data$reaction_metadata`: A tibble containing reaction metadata specific to the RECON2 metabolic model.
-* `compass_data$reaction_partitions`: A tibble grouping similar reactions into metareactions.
+| Table                        | Type       | Description                                                  |
+| ---------------------------- | ---------- | ------------------------------------------------------------ |
+| `reaction_consistencies`     | Data frame | Each row is a reaction and each column is a cell. `reaction_consistencies[i, j]` is the consitency (or "compatibility") between reaction `i` and cell `j`. |
+| `metareaction_consistencies` | Data frame | Each row is a metareaction and each column is a cell. `metareaction_consistencies[i, j]` is the consistency (or "compatibility") between metareaction `i` and cell `j`. |
+| `gene_expression_statistics` | Data frame | Each column describes a cell's total expression, metabolic expression, and metabolic activity. |
+| `cell_metadata`              | Tibble     | The cell metadata from `"cell_metadata.csv"`. In this example it's the Th17 cell data from the paper linked above. |
+| `gene_metadata`              | Tibble     | The gene metadata from the metabolic model (RECON2, by default). |
+| `metabolite_metadata`        | Tibble     | The metabolite metadata from the metabolic model (RECON2, by default). |
+| `reaction_metadata`          | Tibble     | The reaction metadata from the metabolic model (RECON2, by default). |
+| `reaction_partitions`        | Tibble     | Each row describes a reaction and which metareaction it belongs to. (A metareaction is a group of similar reactions.) |
 
 ### Exploring the statistical analysis suite
 
