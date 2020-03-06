@@ -1,8 +1,8 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param ids A param.
 #' @param separator A param.
 #' @param annotations A param.
@@ -10,11 +10,11 @@
 #' @param unannotated_col_name A param.
 #' @param annotation_col_name A param.
 #' @param ... A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @importFrom magrittr %>% %<>%
-#' 
+#'
 #' @noRd
 get_annotations <- function(ids, ..., separator, annotations, id_col_name, unannotated_col_name, annotation_col_name) {
     if (is.null(separator) | is.null(annotations)) {

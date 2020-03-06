@@ -1,15 +1,15 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param reaction_consistencies A param.
 #' @param metareactions A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @importFrom magrittr %>% %<>%
-#' 
+#'
 #' @noRd
 get_metareaction_consistencies <- function(reaction_consistencies, metareactions) {
     metareaction_consistencies <-

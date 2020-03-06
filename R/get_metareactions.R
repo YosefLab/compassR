@@ -1,16 +1,16 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param reaction_consistencies A param.
 #' @param cluster_strength A param.
 #' @param ... A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @importFrom magrittr %>% %<>%
-#' 
+#'
 #' @noRd
 get_metareactions <- function(reaction_consistencies, ..., cluster_strength) {
     pairwise_reaction_correlations <- cor(t(reaction_consistencies), method = "spearman")

@@ -1,26 +1,26 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param expr A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
 quiet <- function(expr) {
     suppressWarnings(suppressMessages(expr))
 }
 
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param file_path A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
 get_file_reader <- function(file_path) {
     file_extension <- tail(strsplit(file_path, "\\.")[[1]], n = 1)
@@ -39,14 +39,14 @@ get_file_reader <- function(file_path) {
 }
 
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param file_path A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
 read_compass_metadata <- function(file_path) {
     file_reader <- get_file_reader(file_path)
@@ -59,14 +59,14 @@ read_compass_metadata <- function(file_path) {
 }
 
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param file_path A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
 read_compass_matrix <- function(file_path) {
     file_reader <- get_file_reader(file_path)
@@ -79,14 +79,14 @@ read_compass_matrix <- function(file_path) {
 }
 
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param package_name A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
 require_suggested_package <- function(package_name) {
     if (!requireNamespace(package_name, quietly = TRUE)) {
@@ -98,40 +98,38 @@ require_suggested_package <- function(package_name) {
 }
 
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param reactions_to_drop A param.
-#' @param cause A param.
+#' @param description A param.
 #' @param is_warning A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
-alert_of_drop <- function(reactions_to_drop, cause, is_warning = FALSE) {
+alert_of_drop <- function(reactions_to_drop, description, is_warning = FALSE) {
     if (any(reactions_to_drop)) {
         num_reactions_to_drop <- sum(reactions_to_drop)
         alert <- ifelse(is_warning, warning, message)
-        alert(paste(
-            num_reactions_to_drop,
-            cause,
-            "They will be dropped."
+        alert(stringr::str_glue(
+            "Dropping {num_reactions_to_drop} reactions that are {description} ..."
         ))
     }
 }
 
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param string A param.
 #' @param indentation_level A param.
 #' @param indentation_style A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
 indent <- function(string, indentation_level = 1, indentation_style = "  ") {
     indented_string <- paste(
@@ -143,19 +141,19 @@ indent <- function(string, indentation_level = 1, indentation_style = "  ") {
 }
 
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param binding_name A param.
 #' @param binding_value A param.
 #' @param separator A param.
 #' @param ...
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @importFrom magrittr %>% %<>%
-#' 
+#'
 #' @noRd
 get_binding_representation <- function(binding_name, binding_value, ..., separator = ", ") {
     if (length(binding_value) > 1) {
@@ -168,18 +166,18 @@ get_binding_representation <- function(binding_name, binding_value, ..., separat
 }
 
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param table A param.
 #' @param table_name A param.
 #' @param table_class A param.
 #' @param rows A param.
 #' @param cols A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
 get_tabular_data_representation <- function(table, table_name, table_class, rows, cols) {
     tabular_data_representation <- stringr::str_glue(

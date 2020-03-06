@@ -1,13 +1,13 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param group_A_values A param.
 #' @param group_B_values A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @noRd
 cohens_d <- function(group_A_values, group_B_values) {
     n_A <- length(group_A_values)

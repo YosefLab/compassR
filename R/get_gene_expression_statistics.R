@@ -1,17 +1,17 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @param linear_gene_expression_matrix_path A param.
 #' @param gene_metadata A param.
 #' @param gene_id_col_name A param.
 #' @param ... A param.
-#' 
+#'
 #' @return An output.
-#' 
+#'
 #' @importFrom magrittr %>% %<>%
-#' 
+#'
 #' @noRd
 get_gene_expression_statistics <- function(linear_gene_expression_matrix_path, gene_metadata, ..., gene_id_col_name) {
     linear_gene_expression_matrix <-

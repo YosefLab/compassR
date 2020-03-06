@@ -1,8 +1,8 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @export
 CompassAnalyzer <- R6::R6Class(
     "CompassAnalyzer",
@@ -47,13 +47,13 @@ CompassAnalyzer <- R6::R6Class(
 
         #' @description
         #' Description.
-        #' 
+        #'
         #' @param consistencies_matrix A param.
         #' @param num_components A param.
         #' @param ... A param.
-        #' 
+        #'
         #' @return An output.
-        #' 
+        #'
         #' @importFrom magrittr %>% %<>%
         get_umap_components = function(consistencies_matrix, ..., num_components = 2) {
             require_suggested_package("uwot")
@@ -69,15 +69,15 @@ CompassAnalyzer <- R6::R6Class(
 
         #' @description
         #' Description.
-        #' 
+        #'
         #' @param consistencies_matrix A param.
         #' @param group_A_cell_ids A param.
         #' @param group_B_cell_ids A param.
         #' @param for_metareactions A param.
         #' @param ... A param.
-        #' 
+        #'
         #' @return An output.
-        #' 
+        #'
         #' @importFrom magrittr %>% %<>%
         conduct_wilcoxon_test = function(consistencies_matrix, group_A_cell_ids, group_B_cell_ids, ..., for_metareactions = TRUE) {
             if (0 < length(intersect(group_A_cell_ids, group_B_cell_ids))) {

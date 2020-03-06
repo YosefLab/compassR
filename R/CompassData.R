@@ -1,8 +1,8 @@
 #' @title Title
-#' 
+#'
 #' @description
 #' Description.
-#' 
+#'
 #' @export
 CompassData <- R6::R6Class(
     "CompassData",
