@@ -23,11 +23,13 @@ quiet <- function(expr) {
 #'
 #' @noRd
 get_file_reader <- function(file_path) {
-    file_extension <- tail(strsplit(file_path, "\\.")[[1]], n = 1)
+    file_extension <- stringr::str_replace(file_path, ".*?\\.", "")
     file_reader <- switch (
         file_extension,
         "csv" = readr::read_csv,
-        "tsv" = readr::read_tsv
+        "csv.gz" = readr::read_csv,
+        "tsv" = readr::read_tsv,
+        "tsv.gz" = readr::read_tsv
     )
     if (is.null(file_reader)) {
         stop(
@@ -91,7 +93,9 @@ read_compass_matrix <- function(file_path) {
 require_suggested_package <- function(package_name) {
     if (!requireNamespace(package_name, quietly = TRUE)) {
         stop(
-            stringr::str_glue("Package \"{package_name}\" is required for this function. Please install it."),
+            stringr::str_glue(
+                "Package \"{package_name}\" is required for this function. Please install it."
+            ),
             call. = FALSE
         )
     }
