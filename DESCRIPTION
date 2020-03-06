@@ -8,7 +8,7 @@ Description: This package provides a specialized pipeline for the analysis and
     expressive utility functions for conducting statistical analyses building
     thereupon.
 Depends:
-    R (>= 3.6.2),
+    R (>= 3.5.3),
 Imports:
     magrittr,
     R6,
