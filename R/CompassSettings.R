@@ -8,29 +8,23 @@ CompassSettings <- R6::R6Class(
     "CompassSettings",
     public = list(
 
-        #' @field metabolic_model_directory A field.
-        metabolic_model_directory = NULL,
+        #' @field gene_metadata_path A field.
+        gene_metadata_path = NULL,
 
-        #' @field gene_metadata_file A field.
-        gene_metadata_file = NULL,
+        #' @field metabolite_metadata_path A field.
+        metabolite_metadata_path = NULL,
 
-        #' @field metabolite_metadata_file A field.
-        metabolite_metadata_file = NULL,
+        #' @field reaction_metadata_path A field.
+        reaction_metadata_path = NULL,
 
-        #' @field reaction_metadata_file A field.
-        reaction_metadata_file = NULL,
+        #' @field cell_metadata_path A field.
+        cell_metadata_path = NULL,
 
-        #' @field user_data_directory A field.
-        user_data_directory = NULL,
+        #' @field reaction_consistencies_path A field.
+        reaction_consistencies_path = NULL,
 
-        #' @field cell_metadata_file A field.
-        cell_metadata_file = NULL,
-
-        #' @field reaction_consistencies_file A field.
-        reaction_consistencies_file = NULL,
-
-        #' @field linear_gene_expression_matrix_file A field.
-        linear_gene_expression_matrix_file = NULL,
+        #' @field linear_gene_expression_matrix_path A field.
+        linear_gene_expression_matrix_path = NULL,
 
         #' @field gene_id_col_name A field.
         gene_id_col_name = NULL,
@@ -92,14 +86,30 @@ CompassSettings <- R6::R6Class(
             min_reaction_range = 1e-8,
             cluster_strength = 0.1
         ) {
-            self$metabolic_model_directory <- metabolic_model_directory
-            self$gene_metadata_file <- gene_metadata_file
-            self$metabolite_metadata_file <- metabolite_metadata_file
-            self$reaction_metadata_file <- reaction_metadata_file
-            self$user_data_directory <- user_data_directory
-            self$cell_metadata_file <- cell_metadata_file
-            self$reaction_consistencies_file <- reaction_consistencies_file
-            self$linear_gene_expression_matrix_file <- linear_gene_expression_matrix_file
+            self$gene_metadata_path <- file.path(
+                metabolic_model_directory,
+                gene_metadata_file
+            )
+            self$metabolite_metadata_path <- file.path(
+                metabolic_model_directory,
+                metabolite_metadata_file
+            )
+            self$reaction_metadata_path <- file.path(
+                metabolic_model_directory,
+                reaction_metadata_file
+            )
+            self$cell_metadata_path <- file.path(
+                user_data_directory,
+                cell_metadata_file
+            )
+            self$reaction_consistencies_path <- file.path(
+                user_data_directory,
+                reaction_consistencies_file
+            )
+            self$linear_gene_expression_matrix_path <- file.path(
+                user_data_directory,
+                linear_gene_expression_matrix_file
+            )
             self$gene_id_col_name <- gene_id_col_name
             self$cell_id_col_name <- cell_id_col_name
             self$reaction_direction_separator <- reaction_direction_separator

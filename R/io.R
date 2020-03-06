@@ -66,17 +66,22 @@ read_compass_metadata <- function(file_path) {
 #' Description.
 #'
 #' @param file_path A param.
+#' @param index A param.
 #'
 #' @return An output.
 #'
 #' @noRd
-read_compass_matrix <- function(file_path) {
+read_compass_matrix <- function(file_path, index) {
     file_reader <- get_file_reader(file_path)
-    data <- quiet(file_reader(
+    data <-
+        quiet(file_reader(
             file_path,
             col_types = readr::cols(X1 = "c", .default = "d"),
             na = c("", "NA", "N/A")
-        ))
+        )) %>%
+        dplyr::rename(!!index := 1) %>%
+        tibble::column_to_rownames(index) %>%
+        as.data.frame()
     data
 }
 

@@ -42,32 +42,14 @@ CompassData <- R6::R6Class(
         #'
         #' @return An output.
         initialize = function(settings) {
-            gene_metadata_path <- file.path(
-                settings$metabolic_model_directory,
-                settings$gene_metadata_file
-            )
-            metabolite_metadata_path <- file.path(
-                settings$metabolic_model_directory,
-                settings$metabolite_metadata_file
-            )
-            reaction_metadata_path <- file.path(
-                settings$metabolic_model_directory,
-                settings$reaction_metadata_file
-            )
-            cell_metadata_path <- file.path(
-                settings$user_data_directory,
-                settings$cell_metadata_file
-            )
-            reaction_consistencies_path <- file.path(
-                settings$user_data_directory,
-                settings$reaction_consistencies_file
-            )
-            linear_gene_expression_matrix_path <- file.path(
-                settings$user_data_directory,
-                settings$linear_gene_expression_matrix_file
-            )
+            gene_metadata <- read_compass_metadata(settings$gene_metadata_path)
+            metabolite_metadata <- read_compass_metadata(settings$metabolite_metadata_path)
+            reaction_metadata <- read_compass_metadata(settings$reaction_metadata_path)
+            cell_metadata <- read_compass_metadata(settings$cell_metadata_path)
+            compass_scores <- read_compass_matrix(settings$reaction_consistencies_path, "reaction_id")
+            linear_gene_expression_matrix <- read_compass_matrix(settings$linear_gene_expression_matrix_path, "gene")
             reaction_consistencies <- get_reaction_consistencies(
-                reaction_consistencies_path,
+                compass_scores,
                 min_consistency = settings$min_reaction_consistency,
                 min_range = settings$min_reaction_range
             )
@@ -93,12 +75,8 @@ CompassData <- R6::R6Class(
                     metareactions,
                     by = "reaction_id"
                 )
-            cell_metadata <- read_compass_metadata(cell_metadata_path)
-            gene_metadata <- read_compass_metadata(gene_metadata_path)
-            metabolite_metadata <- read_compass_metadata(metabolite_metadata_path)
-            reaction_metadata <- read_compass_metadata(reaction_metadata_path)
             gene_expression_statistics <- get_gene_expression_statistics(
-                linear_gene_expression_matrix_path,
+                linear_gene_expression_matrix,
                 gene_metadata,
                 gene_id_col_name = settings$gene_id_col_name
             )

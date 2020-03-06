@@ -3,7 +3,7 @@
 #' @description
 #' Description.
 #'
-#' @param linear_gene_expression_matrix_path A param.
+#' @param linear_gene_expression_matrix A param.
 #' @param gene_metadata A param.
 #' @param gene_id_col_name A param.
 #' @param ... A param.
@@ -13,12 +13,7 @@
 #' @importFrom magrittr %>% %<>%
 #'
 #' @noRd
-get_gene_expression_statistics <- function(linear_gene_expression_matrix_path, gene_metadata, ..., gene_id_col_name) {
-    linear_gene_expression_matrix <-
-        read_compass_matrix(linear_gene_expression_matrix_path) %>%
-        dplyr::rename(gene = 1) %>%
-        tibble::column_to_rownames("gene") %>%
-        as.data.frame()
+get_gene_expression_statistics <- function(linear_gene_expression_matrix, gene_metadata, ..., gene_id_col_name) {
     metabolic_genes <- intersect(
         rownames(linear_gene_expression_matrix),
         gene_metadata[[gene_id_col_name]]
