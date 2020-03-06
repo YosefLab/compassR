@@ -20,8 +20,8 @@ CompassSettings <- R6::R6Class(
         #' @field cell_metadata_path A field.
         cell_metadata_path = NULL,
 
-        #' @field reaction_consistencies_path A field.
-        reaction_consistencies_path = NULL,
+        #' @field compass_scores_path A field.
+        compass_scores_path = NULL,
 
         #' @field linear_gene_expression_matrix_path A field.
         linear_gene_expression_matrix_path = NULL,
@@ -56,7 +56,7 @@ CompassSettings <- R6::R6Class(
         #' @param reaction_metadata_file A param.
         #' @param user_data_directory A param.
         #' @param cell_metadata_file A param.
-        #' @param reaction_consistencies_file A param.
+        #' @param compass_scores_file A param.
         #' @param linear_gene_expression_matrix_file A param.
         #' @param gene_id_col_name A param.
         #' @param cell_id_col_name A param.
@@ -76,7 +76,7 @@ CompassSettings <- R6::R6Class(
             reaction_metadata_file = "reaction_metadata.csv",
             user_data_directory,
             cell_metadata_file = "cell_metadata.csv",
-            reaction_consistencies_file = "reactions.tsv",
+            compass_scores_file = "reactions.tsv",
             linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
             gene_id_col_name,
             cell_id_col_name,
@@ -102,9 +102,9 @@ CompassSettings <- R6::R6Class(
                 user_data_directory,
                 cell_metadata_file
             )
-            self$reaction_consistencies_path <- file.path(
+            self$compass_scores_path <- file.path(
                 user_data_directory,
-                reaction_consistencies_file
+                compass_scores_file
             )
             self$linear_gene_expression_matrix_path <- file.path(
                 user_data_directory,
@@ -139,36 +139,28 @@ CompassSettings <- R6::R6Class(
             readable_representation <- paste(
                 "CompassSettings:",
                 indent(get_binding_representation(
-                    "Metabolic model directory",
-                    self$metabolic_model_directory
+                    "Gene metadata path",
+                    self$gene_metadata_path
                 )),
                 indent(get_binding_representation(
-                    "Gene metadata file",
-                    self$gene_metadata_file
+                    "Metabolite metadata path",
+                    self$metabolite_metadata_path
                 )),
                 indent(get_binding_representation(
-                    "Metabolite metadata file",
-                    self$metabolite_metadata_file
+                    "Reaction metadata path",
+                    self$reaction_metadata_path
                 )),
                 indent(get_binding_representation(
-                    "Reaction metadata file",
-                    self$reaction_metadata_file
+                    "Cell metadata path",
+                    self$cell_metadata_path
                 )),
                 indent(get_binding_representation(
-                    "User data directory",
-                    self$user_data_directory
+                    "Reaction consistencies path",
+                    self$compass_scores_path
                 )),
                 indent(get_binding_representation(
-                    "Cell metadata file",
-                    self$cell_metadata_file
-                )),
-                indent(get_binding_representation(
-                    "Reaction consistencies file",
-                    self$reaction_consistencies_file
-                )),
-                indent(get_binding_representation(
-                    "Linear gene expression matrix file",
-                    self$linear_gene_expression_matrix_file
+                    "Linear gene expression matrix path",
+                    self$linear_gene_expression_matrix_path
                 )),
                 indent(get_binding_representation(
                     "Gene symbol column name",
