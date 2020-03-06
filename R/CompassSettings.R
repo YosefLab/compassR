@@ -76,7 +76,7 @@ CompassSettings <- R6::R6Class(
         #' @return An output.
         initialize = function(
             ...,
-            metabolic_model_directory = system.file("extdata", "RECON2", package = "compassanalytics", mustWork = TRUE),
+            metabolic_model_directory = system.file("extdata", "RECON2", package = "compassR", mustWork = TRUE),
             gene_metadata_file = "gene_metadata.csv",
             metabolite_metadata_file = "metabolite_metadata.csv",
             reaction_metadata_file = "reaction_metadata.csv",
