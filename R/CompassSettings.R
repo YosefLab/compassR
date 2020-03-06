@@ -76,7 +76,7 @@ CompassSettings <- R6::R6Class(
             reaction_metadata_file = "reaction_metadata.csv",
             user_data_directory,
             cell_metadata_file = "cell_metadata.csv",
-            compass_scores_file = "reactions.tsv",
+            compass_scores_file = "compass_scores.tsv",
             linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
             gene_id_col_name,
             cell_id_col_name,
