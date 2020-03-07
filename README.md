@@ -157,4 +157,4 @@ theme(legend.position = "bottom", legend.direction = "horizontal")
 
 Voila!
 
-![Up- and Down- Regulated Reactions Cross Pathway Boundaries](assets/up-and-down-regulated-reactions-cross-pathway-boundaries.pdf)
+<img src="https://i.imgur.com/IENsq0k.png"></img>
