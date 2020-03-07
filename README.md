@@ -124,7 +124,7 @@ cohens_d_by_subsystem <-
     )
 ```
 
-And just like that, we can reproduce the plot from the paper linked above. Voila!
+And now, with a little `ggplot2`, we can reproduce the plot from the paper linked above ...
 
 ```R
 ggplot(
@@ -155,4 +155,6 @@ theme_bw() +
 theme(legend.position = "bottom", legend.direction = "horizontal")
 ```
 
-![Up- and Down- Regulated Reactions Cross Pathway Boundaries](/assets/Up- and Down- Regulated Reactions Cross Pathway Boundaries.pdf)
+Voila!
+
+![Up- and Down- Regulated Reactions Cross Pathway Boundaries](assets/Up- and Down- Regulated Reactions Cross Pathway Boundaries.pdf)
