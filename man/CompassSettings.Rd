@@ -2,38 +2,38 @@
 % Please edit documentation in R/CompassSettings.R
 \name{CompassSettings}
 \alias{CompassSettings}
-\title{Title}
+\title{CompassSettings}
 \description{
-Description.
+An object through which you can specify settings for your COMPASS analysis.
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{gene_metadata_path}}{A field.}
+\item{\code{gene_metadata_path}}{A path to a file containing tabular gene metadata. Each row should represent a single gene. The columns are up to you, so long as one of them provides a unique identifier for each gene.}
 
-\item{\code{metabolite_metadata_path}}{A field.}
+\item{\code{metabolite_metadata_path}}{A path to a file containing tabular metabolite metadata. Each row should represent a single metabolite. The columns are up to you, so long as one of them provides a unique identifier for each metabolite.}
 
-\item{\code{reaction_metadata_path}}{A field.}
+\item{\code{reaction_metadata_path}}{A path to a file containing tabular reaction metadata. Each row should represent a single reaction. The columns are up to you, so long as one of them provides a unique identifier for each reaction.}
 
-\item{\code{cell_metadata_path}}{A field.}
+\item{\code{cell_metadata_path}}{A path to a file containing tabular cell metadata. Each row should represent a single cell. The columns are up to you, so long as one of them provides a unique identifier for each cell.}
 
-\item{\code{compass_scores_path}}{A field.}
+\item{\code{compass_scores_path}}{A path to a file containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)}
 
-\item{\code{linear_gene_expression_matrix_path}}{A field.}
+\item{\code{linear_gene_expression_matrix_path}}{A path to a file containing the linear gene expression matrix. (This is the input to the COMPASS algorithm.)}
 
-\item{\code{gene_id_col_name}}{A field.}
+\item{\code{cell_id_col_name}}{The name of the column that uniquely identifies each cell in the cell metadata file.}
 
-\item{\code{cell_id_col_name}}{A field.}
+\item{\code{gene_id_col_name}}{The name of the column that uniquely identifies each gene in the gene metadata file.}
 
-\item{\code{reaction_direction_separator}}{A field.}
+\item{\code{reaction_direction_separator}}{It is assumed that reaction IDs take the form {unique id}{separator}{one of N annotations}, where the separator is specified by this length-1 character vector, interpreted as a regular expression.}
 
-\item{\code{reaction_directions}}{A field.}
+\item{\code{reaction_directions}}{It is assumed that reaction IDs take the form {unique id}{separator}{one of N annotations}, where the annotations are specified by this length-N character vector, interpreted as regular expressions.}
 
-\item{\code{min_reaction_consistency}}{A field.}
+\item{\code{min_reaction_consistency}}{Reactions are dropped that have consistency scores below this threshold.}
 
-\item{\code{min_reaction_range}}{A field.}
+\item{\code{min_reaction_range}}{Reactions are dropped that have a range of consistency scores narrow than this threshold.}
 
-\item{\code{cluster_strength}}{A field.}
+\item{\code{cluster_strength}}{A number between 0 and 1, specifying the aggressiveness with which to cluster similar reactions together into metareactions.}
 }
 \if{html}{\out{</div>}}
 }
@@ -62,8 +62,8 @@ Description.
   cell_metadata_file = "cell_metadata.csv",
   compass_scores_file = "reactions.tsv",
   linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
-  gene_id_col_name,
   cell_id_col_name,
+  gene_id_col_name,
   reaction_direction_separator = "_",
   reaction_directions = c("pos", "neg"),
   min_reaction_consistency = 1e-04,
@@ -75,48 +75,48 @@ Description.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{A param.}
+\item{\code{...}}{Unused.}
 
-\item{\code{metabolic_model_directory}}{A param.}
+\item{\code{metabolic_model_directory}}{The path to the directory containing the specifications of your metabolic model.}
 
-\item{\code{gene_metadata_file}}{A param.}
+\item{\code{gene_metadata_file}}{A path to a file in the metabolic_model_directory containing tabular gene metadata. Each row should represent a single gene. The columns are up to you, so long as one of them provides a unique identifier for each gene.}
 
-\item{\code{metabolite_metadata_file}}{A param.}
+\item{\code{metabolite_metadata_file}}{A path to a file in the metabolic_model_directory containing tabular metabolite metadata. Each row should represent a single metabolite. The columns are up to you, so long as one of them provides a unique identifier for each metabolite.}
 
-\item{\code{reaction_metadata_file}}{A param.}
+\item{\code{reaction_metadata_file}}{A path to a file in the metabolic_model_directory containing tabular reaction metadata. Each row should represent a single reaction. The columns are up to you, so long as one of them provides a unique identifier for each reaction.}
 
-\item{\code{user_data_directory}}{A param.}
+\item{\code{user_data_directory}}{The path to the directory containing the data specific to the analysis you hope to conduct.}
 
-\item{\code{cell_metadata_file}}{A param.}
+\item{\code{cell_metadata_file}}{A path to a file in the user_data_directory containing tabular cell metadata. Each row should represent a single cell. The columns are up to you, so long as one of them provides a unique identifier for each cell.}
 
-\item{\code{compass_scores_file}}{A param.}
+\item{\code{compass_scores_file}}{A path to a file in the user_data_directory containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)}
 
-\item{\code{linear_gene_expression_matrix_file}}{A param.}
+\item{\code{linear_gene_expression_matrix_file}}{A path to a file in the user_data_directory containing the linear gene expression matrix. (This is the input to the COMPASS algorithm.)}
 
-\item{\code{gene_id_col_name}}{A param.}
+\item{\code{cell_id_col_name}}{The name of the column that uniquely identifies each cell in the cell metadata file.}
 
-\item{\code{cell_id_col_name}}{A param.}
+\item{\code{gene_id_col_name}}{The name of the column that uniquely identifies each gene in the gene metadata file.}
 
-\item{\code{reaction_direction_separator}}{A param.}
+\item{\code{reaction_direction_separator}}{It is assumed that reaction IDs take the form {unique id}{separator}{one of N annotations}, where the separator is specified by this length-1 character vector, interpreted as a regular expression.}
 
-\item{\code{reaction_directions}}{A param.}
+\item{\code{reaction_directions}}{It is assumed that reaction IDs take the form {unique id}{separator}{one of N annotations}, where the annotations are specified by this length-N character vector, interpreted as regular expressions.}
 
-\item{\code{min_reaction_consistency}}{A param.}
+\item{\code{min_reaction_consistency}}{Reactions are dropped that have consistency scores below this threshold.}
 
-\item{\code{min_reaction_range}}{A param.}
+\item{\code{min_reaction_range}}{Reactions are dropped that have a range of consistency scores narrow than this threshold.}
 
-\item{\code{cluster_strength}}{A param.}
+\item{\code{cluster_strength}}{A number between 0 and 1, specifying the aggressiveness with which to cluster similar reactions together into metareactions.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An output.
+NULL.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \subsection{Method \code{print()}}{
-Description.
+Prints a human-readable representation of this CompassSettings instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CompassSettings$print(...)}\if{html}{\out{</div>}}
 }
@@ -124,18 +124,18 @@ Description.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{A param.}
+\item{\code{...}}{Unused.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An output.
+NULL.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-repr"></a>}}
 \subsection{Method \code{repr()}}{
-Description.
+Returns a human-readable representation of this CompassSettings instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CompassSettings$repr(...)}\if{html}{\out{</div>}}
 }
@@ -143,7 +143,7 @@ Description.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{A param.}
+\item{\code{...}}{Unused.}
 }
 \if{html}{\out{</div>}}
 }

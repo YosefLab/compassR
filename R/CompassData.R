@@ -1,3 +1,5 @@
+#' @title CompassData
+#'
 #' @description
 #' An object through which you can access several useful tables for your COMPASS analysis.
 #'
@@ -34,9 +36,9 @@ CompassData <- R6::R6Class(
         reaction_partitions = NULL,
 
         #' @description
-        #' Description.
+        #' Initialize the CompassSettings instance. Postprocess COMPASS data and populate tables.
         #'
-        #' @param The CompassSettings instance specifying the settings for this CompassData instance.
+        #' @param settings The CompassSettings instance specifying the settings for this CompassData instance.
         #'
         #' @return NULL.
         initialize = function(settings) {

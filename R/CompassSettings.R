@@ -1,3 +1,5 @@
+#' @title CompassSettings
+#'
 #' @description
 #' An object through which you can specify settings for your COMPASS analysis.
 #'

@@ -1,3 +1,5 @@
+#' @title CompassAnalyzer
+#'
 #' @description
 #' An object through which you can access several useful functions for your COMPASS analysis.
 #'
@@ -10,9 +12,9 @@ CompassAnalyzer <- R6::R6Class(
         settings = NULL,
 
         #' @description
-        #' Description.
+        #' Initialize the CompassAnalyzer instance.
         #'
-        #' @param The CompassSettings instance specifying the settings for this CompassAnalyzer instance.
+        #' @param settings The CompassSettings instance specifying the settings for this CompassAnalyzer instance.
         #'
         #' @return NULL.
         initialize = function(settings) {

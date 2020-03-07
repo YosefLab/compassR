@@ -2,30 +2,30 @@
 % Please edit documentation in R/CompassData.R
 \name{CompassData}
 \alias{CompassData}
-\title{Title}
+\title{CompassData}
 \description{
-Description.
+An object through which you can access several useful tables for your COMPASS analysis.
 }
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{settings}}{A field.}
+\item{\code{settings}}{The CompassSettings instance specifying the settings for this CompassData instance.}
 
-\item{\code{reaction_consistencies}}{A field.}
+\item{\code{reaction_consistencies}}{Each row is a reaction and each column is a cell. reaction_consistencies[i, j] is the consitency (or "compatibility") between reaction i and cell j.}
 
-\item{\code{metareaction_consistencies}}{A field.}
+\item{\code{metareaction_consistencies}}{Each row is a metareaction and each column is a cell. metareaction_consistencies[i, j] is the consistency (or "compatibility") between metareaction i and cell j.}
 
-\item{\code{gene_expression_statistics}}{A field.}
+\item{\code{gene_expression_statistics}}{Each column describes a cell's total expression, metabolic expression, and metabolic activity.}
 
-\item{\code{cell_metadata}}{A field.}
+\item{\code{cell_metadata}}{The cell metadata from cell_metadata.csv. In this example it's the Th17 cell data from the papers linked above.}
 
-\item{\code{gene_metadata}}{A field.}
+\item{\code{gene_metadata}}{The gene metadata from the metabolic model (RECON2, by default).}
 
-\item{\code{metabolite_metadata}}{A field.}
+\item{\code{metabolite_metadata}}{The metabolite metadata from the metabolic model (RECON2, by default).}
 
-\item{\code{reaction_metadata}}{A field.}
+\item{\code{reaction_metadata}}{The reaction metadata from the metabolic model (RECON2, by default).}
 
-\item{\code{reaction_partitions}}{A field.}
+\item{\code{reaction_partitions}}{Each row describes a reaction in terms of its ID, undirected ID, direction, and metareaction ID.}
 }
 \if{html}{\out{</div>}}
 }
@@ -41,7 +41,7 @@ Description.
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-new"></a>}}
 \subsection{Method \code{new()}}{
-Description.
+Initialize the CompassSettings instance. Postprocess COMPASS data and populate tables.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CompassData$new(settings)}\if{html}{\out{</div>}}
 }
@@ -49,18 +49,18 @@ Description.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{settings}}{}
+\item{\code{settings}}{The CompassSettings instance specifying the settings for this CompassData instance.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An output.
+NULL.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-print"></a>}}
 \subsection{Method \code{print()}}{
-Description.
+Prints a human-readable representation of this CompassData instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CompassData$print(...)}\if{html}{\out{</div>}}
 }
@@ -68,18 +68,18 @@ Description.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{A param.}
+\item{\code{...}}{Unused.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-An output.
+NULL.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-repr"></a>}}
 \subsection{Method \code{repr()}}{
-Description.
+Returns a human-readable representation of this CompassData instance.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CompassData$repr(...)}\if{html}{\out{</div>}}
 }
@@ -87,7 +87,7 @@ Description.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{A param.}
+\item{\code{...}}{Unused.}
 }
 \if{html}{\out{</div>}}
 }
