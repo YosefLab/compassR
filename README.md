@@ -124,7 +124,7 @@ cohens_d_by_subsystem <-
     )
 ```
 
-And now, with a little `ggplot2`, we can reproduce the plot from the paper linked above ...
+And with a little `ggplot2`, we can even reproduce the plot from the paper linked above ...
 
 ```R
 ggplot(
