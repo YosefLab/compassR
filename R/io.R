@@ -3,35 +3,17 @@
 #' @description
 #' Description.
 #'
-#' @param expr A param.
-#'
-#' @return An output.
-#'
-#' @noRd
-quiet <- function(expr) {
-    suppressWarnings(suppressMessages(expr))
-}
-
-#' @title Title
-#'
-#' @description
-#' Description.
-#'
 #' @param file_path A param.
 #'
 #' @return An output.
 #'
 #' @noRd
 get_file_reader <- function(file_path) {
-    file_extension <- stringr::str_replace(file_path, ".*?\\.", "")
-    file_reader <- switch (
-        file_extension,
-        "csv" = readr::read_csv,
-        "csv.gz" = readr::read_csv,
-        "tsv" = readr::read_tsv,
-        "tsv.gz" = readr::read_tsv
-    )
-    if (is.null(file_reader)) {
+    if (endsWith(file_path, ".csv") | endsWith(file_path, ".csv.gz")) {
+        file_reader <- readr::read_csv
+    } else if (endsWith(file_path, ".tsv") | endsWith(file_path, ".tsv.gz")) {
+        file_reader <- readr::read_tsv
+    } else {
         stop(
             stringr::str_glue("File \"{file_path}\" has an unsupported file extension."),
             call. = FALSE
@@ -52,11 +34,11 @@ get_file_reader <- function(file_path) {
 #' @noRd
 read_compass_metadata <- function(file_path) {
     file_reader <- get_file_reader(file_path)
-    data <- quiet(file_reader(
-            file_path,
-            col_types = readr::cols(.default = "c"),
-            na = c("", "NA", "N/A")
-        ))
+    data <- file_reader(
+        file_path,
+        col_types = readr::cols(.default = "c"),
+        na = c("", "NA", "N/A")
+    )
     data
 }
 
@@ -70,15 +52,25 @@ read_compass_metadata <- function(file_path) {
 #'
 #' @return An output.
 #'
+#' @importFrom magrittr %>% %<>%
+#'
 #' @noRd
 read_compass_matrix <- function(file_path, index) {
     file_reader <- get_file_reader(file_path)
-    data <-
-        quiet(file_reader(
-            file_path,
-            col_types = readr::cols(X1 = "c", .default = "d"),
-            na = c("", "NA", "N/A")
-        )) %>%
+    data <- suppressWarnings(file_reader(
+        file_path,
+        col_types = readr::cols(X1 = "c", .default = "d"),
+        na = c("", "NA", "N/A")
+    ))
+    if (all(is.na(data[[1]]))) {
+        stop(
+            stringr::str_glue(
+                "Badly formatted file: {file_path}. (Commonly, the problem is that the number of columns names is one less than the number of columns. If this is the case, try adding a \"tab\" character to the beginning of the first line.)"
+            ),
+            call. = FALSE
+        )
+    }
+    data %<>%
         dplyr::rename(!!index := 1) %>%
         tibble::column_to_rownames(index) %>%
         as.data.frame()
