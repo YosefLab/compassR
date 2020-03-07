@@ -68,61 +68,89 @@ Now we're ready to start our analysis! We begin by making a `CompassAnalyzer` ob
 compass_analyzer <- CompassAnalyzer$new(compass_settings)
 ```
 
-#### Making a UMAP plot
-
-This code will generate a few UMAP plots, wherein each datum is a cell whose coordinates are a low-dimensional embedding of its consistencies with each of the metareactions in `compass_data$metareaction_consistencies`.
+With the `CompassAnalyzer`, it's easy to conduct statistical analyses. Let's do a Wilcoxon rank-sum test for whether each reaction achieves a higher consistency among Th17p cells or Th17n cells.
 
 ```R
-cell_info_with_umap_components <-
-    compass_analyzer$get_umap_components(
-        compass_data$metareaction_consistencies
-    ) %>%
-    inner_join(
-        compass_data$cell_metadata,
-        by = "cell_id"
-    ) %>%
-    left_join(
-        t(compass_data$gene_expression_statistics) %>% as_tibble(rownames = "cell_id"),
-        by = "cell_id"
-    )
-
-ggplot(
-    cell_info_with_umap_components,
-    aes(x = component_1, y = component_2, color = cell_type)
-) +
-scale_color_discrete(guide = FALSE) +
-geom_point(size = 1, alpha = 0.8) +
-theme_bw()
-
-ggplot(
-    cell_info_with_umap_components,
-    aes(x = component_1, y = component_2, color = metabolic_activity)
-) +
-scale_color_viridis_c() +
-geom_point(size = 1, alpha = 0.8) +
-theme_bw()
-```
-
-#### Conducting a Wilcoxon test
-
-Meanwhile, this code will tell us whether each metareaction in `compass_data$metareaction_consistencies` is more consistent in cells with below-average overall metabolic activity or cells with above-average overall metabolic activity.
-
-```R
-cell_ids_with_gene_expression_statistics <-
-    compass_data$gene_expression_statistics %>%
-    t() %>%
-    as_tibble(rownames = "cell_id")
 group_A_cell_ids <-
-    cell_ids_with_gene_expression_statistics %>%
-    filter(metabolic_activity <= mean(metabolic_activity, na.rm = TRUE)) %>%
+    compass_data$cell_metadata %>%
+    filter(cell_type == "Th17p") %>%
     pull(cell_id)
 group_B_cell_ids <-
-    cell_ids_with_gene_expression_statistics %>%
-    filter(metabolic_activity > mean(metabolic_activity, na.rm = TRUE)) %>%
+    compass_data$cell_metadata %>%
+    filter(cell_type == "Th17n") %>%
     pull(cell_id)
 wilcoxon_results <- compass_analyzer$conduct_wilcoxon_test(
-    compass_data$metareaction_consistencies,
+    compass_data$reaction_consistencies,
     group_A_cell_ids,
-    group_B_cell_ids
+    group_B_cell_ids,
+    for_metareactions = FALSE
 )
+```
+
+We can use functions from the tidyverse to combine the results of our Wilcoxon test with the data we loaded earlier.
+
+```R
+cohens_d_by_subsystem <-
+    wilcoxon_results %>%
+    left_join(
+        select(compass_data$reaction_partitions, "reaction_id", "undirected_reaction_id"),
+        by = "reaction_id"
+    ) %>%
+    left_join(
+        compass_data$reaction_metadata,
+        by = c("undirected_reaction_id" = "rxn_code_nodirection")
+    ) %>%
+    # Keep only "confident reactions", as defined in our paper.
+    filter(!is.na(rxn_EC_number)) %>%
+    filter(rxn_confidence == "0" | rxn_confidence == "4") %>%
+    # Keep only "interesting subsystems", as defined in our paper.
+    filter(!(startsWith(subsystem, "Transport") | startsWith(subsystem, "Exchange"))) %>%
+    filter(!(subsystem == "Miscellaneous" | subsystem == "Unassigned")) %>%
+    # Keep only subsystems of non-negligible size.
+    group_by(subsystem) %>%
+    filter(n() > 5) %>%
+    ungroup() %>%
+    # Order subsystems in a manner that will lend itself to a visually aesthetic plot.
+    mutate(
+        subsystem_priority = factor(subsystem) %>%
+        fct_reorder2(
+            cohens_d,
+            adjusted_p_value,
+            .fun = function(cohens_d, adjusted_p_value) {
+                abs(median(cohens_d[adjusted_p_value < 0.1]))
+            },
+            .desc = FALSE
+        )
+    )
+```
+
+And just like that, we can reproduce the plot from the paper linked above. Voila!
+
+```R
+ggplot(
+    cohens_d_by_subsystem,
+    aes(
+        x = subsystem_priority,
+        y = cohens_d,
+        color = if_else(cohens_d > 0, "up_regulated", "down_regulated"),
+        alpha = if_else(adjusted_p_value < 0.1, "significant", "insignificant")
+    )
+) +
+ggtitle("Up- and Down-Regulated Reactions Cross Pathway Boundaries") +
+xlab("") +
+ylab("Cohen's d") +
+scale_color_manual(
+    values = c(up_regulated = "#ca0020", down_regulated = "#0571b0"),
+    guide = FALSE
+) +
+scale_alpha_manual(
+    name = "",
+    values = c(significant = 1, insignificant = 0.25),
+    labels = c(significant = "BH-adjusted p-value < 0.1", insignificant = "insignificant")
+) +
+coord_flip() +
+geom_point() +
+geom_hline(yintercept = 0, linetype = "dashed") +
+theme_bw() +
+theme(legend.position = "bottom", legend.direction = "horizontal")
 ```
