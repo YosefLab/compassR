@@ -154,3 +154,5 @@ geom_hline(yintercept = 0, linetype = "dashed") +
 theme_bw() +
 theme(legend.position = "bottom", legend.direction = "horizontal")
 ```
+
+![Up- and Down- Regulated Reactions Cross Pathway Boundaries](/assets/Up- and Down- Regulated Reactions Cross Pathway Boundaries.pdf)
