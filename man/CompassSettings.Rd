@@ -9,21 +9,17 @@ Description.
 \section{Public fields}{
 \if{html}{\out{<div class="r6-fields">}}
 \describe{
-\item{\code{metabolic_model_directory}}{A field.}
+\item{\code{gene_metadata_path}}{A field.}
 
-\item{\code{gene_metadata_file}}{A field.}
+\item{\code{metabolite_metadata_path}}{A field.}
 
-\item{\code{metabolite_metadata_file}}{A field.}
+\item{\code{reaction_metadata_path}}{A field.}
 
-\item{\code{reaction_metadata_file}}{A field.}
+\item{\code{cell_metadata_path}}{A field.}
 
-\item{\code{user_data_directory}}{A field.}
+\item{\code{compass_scores_path}}{A field.}
 
-\item{\code{cell_metadata_file}}{A field.}
-
-\item{\code{reaction_consistencies_file}}{A field.}
-
-\item{\code{linear_gene_expression_matrix_file}}{A field.}
+\item{\code{linear_gene_expression_matrix_path}}{A field.}
 
 \item{\code{gene_id_col_name}}{A field.}
 
@@ -57,14 +53,14 @@ Description.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{CompassSettings$new(
   ...,
-  metabolic_model_directory = system.file("extdata", "RECON2", package =
-    "compassanalytics", mustWork = TRUE),
+  metabolic_model_directory = system.file("extdata", "RECON2", package = "compassR",
+    mustWork = TRUE),
   gene_metadata_file = "gene_metadata.csv",
   metabolite_metadata_file = "metabolite_metadata.csv",
   reaction_metadata_file = "reaction_metadata.csv",
   user_data_directory,
   cell_metadata_file = "cell_metadata.csv",
-  reaction_consistencies_file = "reactions.tsv",
+  compass_scores_file = "reactions.tsv",
   linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
   gene_id_col_name,
   cell_id_col_name,
@@ -93,7 +89,7 @@ Description.
 
 \item{\code{cell_metadata_file}}{A param.}
 
-\item{\code{reaction_consistencies_file}}{A param.}
+\item{\code{compass_scores_file}}{A param.}
 
 \item{\code{linear_gene_expression_matrix_file}}{A param.}
 
