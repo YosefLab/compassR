@@ -1,46 +1,44 @@
-#' @title Title
-#'
 #' @description
-#' Description.
+#' An object through which you can access several useful tables for your COMPASS analysis.
 #'
 #' @export
 CompassData <- R6::R6Class(
     "CompassData",
     public = list(
 
-        #' @field settings A field.
+        #' @field settings The CompassSettings instance specifying the settings for this CompassData instance.
         settings = NULL,
 
-        #' @field reaction_consistencies A field.
+        #' @field reaction_consistencies Each row is a reaction and each column is a cell. reaction_consistencies[i, j] is the consitency (or "compatibility") between reaction i and cell j.
         reaction_consistencies = NULL,
 
-        #' @field metareaction_consistencies A field.
+        #' @field metareaction_consistencies Each row is a metareaction and each column is a cell. metareaction_consistencies[i, j] is the consistency (or "compatibility") between metareaction i and cell j.
         metareaction_consistencies = NULL,
 
-        #' @field gene_expression_statistics A field.
+        #' @field gene_expression_statistics Each column describes a cell's total expression, metabolic expression, and metabolic activity.
         gene_expression_statistics = NULL,
 
-        #' @field cell_metadata A field.
+        #' @field cell_metadata The cell metadata from cell_metadata.csv. In this example it's the Th17 cell data from the papers linked above.
         cell_metadata = NULL,
 
-        #' @field gene_metadata A field.
+        #' @field gene_metadata The gene metadata from the metabolic model (RECON2, by default).
         gene_metadata = NULL,
 
-        #' @field metabolite_metadata A field.
+        #' @field metabolite_metadata The metabolite metadata from the metabolic model (RECON2, by default).
         metabolite_metadata = NULL,
 
-        #' @field reaction_metadata A field.
+        #' @field reaction_metadata The reaction metadata from the metabolic model (RECON2, by default).
         reaction_metadata = NULL,
 
-        #' @field reaction_partitions A field.
+        #' @field reaction_partitions Each row describes a reaction in terms of its ID, undirected ID, direction, and metareaction ID.
         reaction_partitions = NULL,
 
         #' @description
         #' Description.
         #'
-        #' @param settings
+        #' @param The CompassSettings instance specifying the settings for this CompassData instance.
         #'
-        #' @return An output.
+        #' @return NULL.
         initialize = function(settings) {
             gene_metadata <- read_compass_metadata(settings$gene_metadata_path)
             metabolite_metadata <- read_compass_metadata(settings$metabolite_metadata_path)
@@ -92,19 +90,19 @@ CompassData <- R6::R6Class(
         },
 
         #' @description
-        #' Description.
+        #' Prints a human-readable representation of this CompassData instance.
         #'
-        #' @param ... A param.
+        #' @param ... Unused.
         #'
-        #' @return An output.
+        #' @return NULL.
         print = function(...) {
             cat(paste(self$repr(), "\n", sep = ""))
         },
 
         #' @description
-        #' Description.
+        #' Returns a human-readable representation of this CompassData instance.
         #'
-        #' @param ... A param.
+        #' @param ... Unused.
         #'
         #' @return An output.
         repr = function(...) {

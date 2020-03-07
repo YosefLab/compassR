@@ -1,5 +1,3 @@
-#' @title Title
-#'
 #' @description
 #' Description.
 #'
@@ -22,8 +20,6 @@ get_file_reader <- function(file_path) {
     file_reader
 }
 
-#' @title Title
-#'
 #' @description
 #' Description.
 #'
@@ -42,8 +38,6 @@ read_compass_metadata <- function(file_path) {
     data
 }
 
-#' @title Title
-#'
 #' @description
 #' Description.
 #'
@@ -77,8 +71,6 @@ read_compass_matrix <- function(file_path, index) {
     data
 }
 
-#' @title Title
-#'
 #' @description
 #' Description.
 #'
@@ -98,8 +90,6 @@ require_suggested_package <- function(package_name) {
     }
 }
 
-#' @title Title
-#'
 #' @description
 #' Description.
 #'
@@ -120,8 +110,6 @@ alert_of_drop <- function(reactions_to_drop, description, is_warning = FALSE) {
     }
 }
 
-#' @title Title
-#'
 #' @description
 #' Description.
 #'
@@ -141,8 +129,6 @@ indent <- function(string, indentation_level = 1, indentation_style = "  ") {
     indented_string
 }
 
-#' @title Title
-#'
 #' @description
 #' Description.
 #'
@@ -166,8 +152,6 @@ get_binding_representation <- function(binding_name, binding_value, ..., separat
     binding_representation
 }
 
-#' @title Title
-#'
 #' @description
 #' Description.
 #'

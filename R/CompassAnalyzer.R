@@ -1,40 +1,38 @@
-#' @title Title
-#'
 #' @description
-#' Description.
+#' An object through which you can access several useful functions for your COMPASS analysis.
 #'
 #' @export
 CompassAnalyzer <- R6::R6Class(
     "CompassAnalyzer",
     public = list(
 
-        #' @field settings A field.
+        #' @field settings The CompassSettings instance specifying the settings for this CompassAnalyzer instance.
         settings = NULL,
 
         #' @description
         #' Description.
         #'
-        #' @param settings
+        #' @param The CompassSettings instance specifying the settings for this CompassAnalyzer instance.
         #'
-        #' @return An output.
+        #' @return NULL.
         initialize = function(settings) {
             self$settings <- settings
         },
 
         #' @description
-        #' Description.
+        #' Prints a human-readable representation of this CompassAnalyzer instance.
         #'
-        #' @param ... A param.
+        #' @param ... Unused.
         #'
-        #' @return An output.
+        #' @return NULL.
         print = function(...) {
             cat(paste(self$repr(), "\n", sep = ""))
         },
 
         #' @description
-        #' Description.
+        #' Returns a human-readable representation of this CompassAnalyzer instance.
         #'
-        #' @param ... A param.
+        #' @param ... Unused.
         #'
         #' @return An output.
         repr = function(...) {
@@ -48,35 +46,13 @@ CompassAnalyzer <- R6::R6Class(
         #' @description
         #' Description.
         #'
-        #' @param consistencies_matrix A param.
-        #' @param num_components A param.
-        #' @param ... A param.
+        #' @param consistencies_matrix Either your CompassData instance's reaction_consistencies matrix, or its metareaction_consistencies matrix, depending on whether you want a table whose rows correspond to reactions or metareactions.
+        #' @param group_A_cell_ids A character vector containing the IDs of the cells that constitute group A.
+        #' @param group_B_cell_ids A character vector containing the IDs of the cells that constitute group B.
+        #' @param for_metareactions Whether the first argument is your reaction_consistencies matrix or your metareaction_consistencies matrix. This argument doesn't affect the contents of the returned tibble, but merely ensures that its column names are appropriate.
+        #' @param ... Unused.
         #'
-        #' @return An output.
-        #'
-        #' @importFrom magrittr %>% %<>%
-        get_umap_components = function(consistencies_matrix, ..., num_components = 2) {
-            require_suggested_package("uwot")
-            umap_components <- uwot::umap(t(consistencies_matrix), n_components = num_components)
-            umap_components %<>% cbind(colnames(consistencies_matrix), .)
-            colnames(umap_components) <- append(
-                self$settings$cell_id_col_name,
-                paste("component", 1:num_components, sep = "_")
-            )
-            umap_components %<>% as_tibble()
-            umap_components
-        },
-
-        #' @description
-        #' Description.
-        #'
-        #' @param consistencies_matrix A param.
-        #' @param group_A_cell_ids A param.
-        #' @param group_B_cell_ids A param.
-        #' @param for_metareactions A param.
-        #' @param ... A param.
-        #'
-        #' @return An output.
+        #' @return A tibble, where each row represents a Wilcoxon rank-sum test for whether a reaction or metareaction achieves a higher consistency among the group A cells than among the group B cells. It has the following columns: reaction_id or metareaction_id, wilcoxon_statistic, cohens_d, p_value, and adjusted_p_value.
         #'
         #' @importFrom magrittr %>% %<>%
         conduct_wilcoxon_test = function(consistencies_matrix, group_A_cell_ids, group_B_cell_ids, ..., for_metareactions = TRUE) {
@@ -125,6 +101,28 @@ CompassAnalyzer <- R6::R6Class(
                 wilcoxon_results %<>% dplyr::rename(reaction_id = metareaction_id)
             }
             wilcoxon_results
+        },
+
+        #' @description
+        #' Description.
+        #'
+        #' @param consistencies_matrix Either your CompassData instance's reaction_consistencies matrix, or its metareaction_consistencies matrix, depending on whether the high-dimensional representation of each cell should encapsulate the cell's reaction consistencies or its metareaction consistencies. In the former case the UMAP algorithm will find a num_components-dimensional embedding for each cell in (# reactions)-dimensional space, and in the latter case the UMAP algorithm will find a num_components-dimensional embedding for each cell in (# metareactions)-dimensional space.
+        #' @param num_components The number of UMAP components to calculate (i.e. the dimensionality of the embedding).
+        #' @param ... Unused.
+        #'
+        #' @return A tibble, where each row represents the low-dimensional UMAP embedding of a cell. It has the following columns: Your CompassSettings instance's cell_id_col_name, component_1, component_2, ..., component_{num_components}.
+        #'
+        #' @importFrom magrittr %>% %<>%
+        get_umap_components = function(consistencies_matrix, ..., num_components = 2) {
+            require_suggested_package("uwot")
+            umap_components <- uwot::umap(t(consistencies_matrix), n_components = num_components)
+            umap_components %<>% cbind(colnames(consistencies_matrix), .)
+            colnames(umap_components) <- append(
+                self$settings$cell_id_col_name,
+                paste("component", 1:num_components, sep = "_")
+            )
+            umap_components %<>% as_tibble()
+            umap_components
         }
 
     )

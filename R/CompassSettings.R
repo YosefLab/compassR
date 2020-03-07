@@ -1,73 +1,71 @@
-#' @title Title
-#'
 #' @description
-#' Description.
+#' An object through which you can specify settings for your COMPASS analysis.
 #'
 #' @export
 CompassSettings <- R6::R6Class(
     "CompassSettings",
     public = list(
 
-        #' @field gene_metadata_path A field.
+        #' @field gene_metadata_path A path to a file containing tabular gene metadata. Each row should represent a single gene. The columns are up to you, so long as one of them provides a unique identifier for each gene.
         gene_metadata_path = NULL,
 
-        #' @field metabolite_metadata_path A field.
+        #' @field metabolite_metadata_path A path to a file containing tabular metabolite metadata. Each row should represent a single metabolite. The columns are up to you, so long as one of them provides a unique identifier for each metabolite.
         metabolite_metadata_path = NULL,
 
-        #' @field reaction_metadata_path A field.
+        #' @field reaction_metadata_path A path to a file containing tabular reaction metadata. Each row should represent a single reaction. The columns are up to you, so long as one of them provides a unique identifier for each reaction.
         reaction_metadata_path = NULL,
 
-        #' @field cell_metadata_path A field.
+        #' @field cell_metadata_path A path to a file containing tabular cell metadata. Each row should represent a single cell. The columns are up to you, so long as one of them provides a unique identifier for each cell.
         cell_metadata_path = NULL,
 
-        #' @field compass_scores_path A field.
+        #' @field compass_scores_path A path to a file containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)
         compass_scores_path = NULL,
 
-        #' @field linear_gene_expression_matrix_path A field.
+        #' @field linear_gene_expression_matrix_path A path to a file containing the linear gene expression matrix. (This is the input to the COMPASS algorithm.)
         linear_gene_expression_matrix_path = NULL,
 
-        #' @field gene_id_col_name A field.
-        gene_id_col_name = NULL,
-
-        #' @field cell_id_col_name A field.
+        #' @field cell_id_col_name The name of the column that uniquely identifies each cell in the cell metadata file.
         cell_id_col_name = NULL,
 
-        #' @field reaction_direction_separator A field.
+        #' @field gene_id_col_name The name of the column that uniquely identifies each gene in the gene metadata file.
+        gene_id_col_name = NULL,
+
+        #' @field reaction_direction_separator It is assumed that reaction IDs take the form {unique id}{separator}{one of N annotations}, where the separator is specified by this length-1 character vector, interpreted as a regular expression.
         reaction_direction_separator = NULL,
 
-        #' @field reaction_directions A field.
+        #' @field reaction_directions It is assumed that reaction IDs take the form {unique id}{separator}{one of N annotations}, where the annotations are specified by this length-N character vector, interpreted as regular expressions.
         reaction_directions = NULL,
 
-        #' @field min_reaction_consistency A field.
+        #' @field min_reaction_consistency Reactions are dropped that have consistency scores below this threshold.
         min_reaction_consistency = NULL,
 
-        #' @field min_reaction_range A field.
+        #' @field min_reaction_range Reactions are dropped that have a range of consistency scores narrow than this threshold.
         min_reaction_range = NULL,
 
-        #' @field cluster_strength A field.
+        #' @field cluster_strength A number between 0 and 1, specifying the aggressiveness with which to cluster similar reactions together into metareactions.
         cluster_strength = NULL,
 
         #' @description
         #' Description.
         #'
-        #' @param metabolic_model_directory A param.
-        #' @param gene_metadata_file A param.
-        #' @param metabolite_metadata_file A param.
-        #' @param reaction_metadata_file A param.
-        #' @param user_data_directory A param.
-        #' @param cell_metadata_file A param.
-        #' @param compass_scores_file A param.
-        #' @param linear_gene_expression_matrix_file A param.
-        #' @param gene_id_col_name A param.
-        #' @param cell_id_col_name A param.
-        #' @param reaction_direction_separator A param.
-        #' @param reaction_directions A param.
-        #' @param min_reaction_consistency A param.
-        #' @param min_reaction_range A param.
-        #' @param cluster_strength A param.
-        #' @param ... A param.
+        #' @param metabolic_model_directory The path to the directory containing the specifications of your metabolic model.
+        #' @param gene_metadata_file A path to a file in the metabolic_model_directory containing tabular gene metadata. Each row should represent a single gene. The columns are up to you, so long as one of them provides a unique identifier for each gene.
+        #' @param metabolite_metadata_file A path to a file in the metabolic_model_directory containing tabular metabolite metadata. Each row should represent a single metabolite. The columns are up to you, so long as one of them provides a unique identifier for each metabolite.
+        #' @param reaction_metadata_file A path to a file in the metabolic_model_directory containing tabular reaction metadata. Each row should represent a single reaction. The columns are up to you, so long as one of them provides a unique identifier for each reaction.
+        #' @param user_data_directory The path to the directory containing the data specific to the analysis you hope to conduct.
+        #' @param cell_metadata_file A path to a file in the user_data_directory containing tabular cell metadata. Each row should represent a single cell. The columns are up to you, so long as one of them provides a unique identifier for each cell.
+        #' @param compass_scores_file A path to a file in the user_data_directory containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)
+        #' @param linear_gene_expression_matrix_file A path to a file in the user_data_directory containing the linear gene expression matrix. (This is the input to the COMPASS algorithm.)
+        #' @param cell_id_col_name The name of the column that uniquely identifies each cell in the cell metadata file.
+        #' @param gene_id_col_name The name of the column that uniquely identifies each gene in the gene metadata file.
+        #' @param reaction_direction_separator It is assumed that reaction IDs take the form {unique id}{separator}{one of N annotations}, where the separator is specified by this length-1 character vector, interpreted as a regular expression.
+        #' @param reaction_directions It is assumed that reaction IDs take the form {unique id}{separator}{one of N annotations}, where the annotations are specified by this length-N character vector, interpreted as regular expressions.
+        #' @param min_reaction_consistency Reactions are dropped that have consistency scores below this threshold.
+        #' @param min_reaction_range Reactions are dropped that have a range of consistency scores narrow than this threshold.
+        #' @param cluster_strength A number between 0 and 1, specifying the aggressiveness with which to cluster similar reactions together into metareactions.
+        #' @param ... Unused.
         #'
-        #' @return An output.
+        #' @return NULL.
         initialize = function(
             ...,
             metabolic_model_directory = system.file("extdata", "RECON2", package = "compassR", mustWork = TRUE),
@@ -78,8 +76,8 @@ CompassSettings <- R6::R6Class(
             cell_metadata_file = "cell_metadata.csv",
             compass_scores_file = "reactions.tsv",
             linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
-            gene_id_col_name,
             cell_id_col_name,
+            gene_id_col_name,
             reaction_direction_separator = "_",
             reaction_directions = c("pos", "neg"),
             min_reaction_consistency = 1e-4,
@@ -120,19 +118,19 @@ CompassSettings <- R6::R6Class(
         },
 
         #' @description
-        #' Description.
+        #' Prints a human-readable representation of this CompassSettings instance.
         #'
-        #' @param ... A param.
+        #' @param ... Unused.
         #'
-        #' @return An output.
+        #' @return NULL.
         print = function(...) {
             cat(paste(self$repr(), "\n", sep = ""))
         },
 
         #' @description
-        #' Description.
+        #' Returns a human-readable representation of this CompassSettings instance.
         #'
-        #' @param ... A param.
+        #' @param ... Unused.
         #'
         #' @return An output.
         repr = function(...) {

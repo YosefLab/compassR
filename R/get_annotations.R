@@ -1,5 +1,3 @@
-#' @title Title
-#'
 #' @description
 #' Description.
 #'
@@ -42,6 +40,3 @@ get_annotations <- function(ids, ..., separator, annotations, id_col_name, unann
     annotations %<>% tibble::as_tibble()
     annotations
 }
-
-# TODO FYI: Assumes reaction_id is of the form {unique id}{separator}{one of several annotations}.
-# TODO FYI: Note that `separator` and all the elements of `annotations` are interpreted as RegEx.
