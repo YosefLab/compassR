@@ -2,6 +2,25 @@
 #' Description.
 #'
 #' @param file_path A param.
+#' @param column_specification A param.
+#'
+#' @return An output.
+#'
+#' @noRd
+read_table <- function(file_path, column_specification) {
+    file_reader <- get_file_reader(file_path)
+    data <- file_reader(
+        file_path,
+        col_types = column_specification,
+        na = c("", "NA", "N/A", "N.A.", "na", "n/a", "n.a.")
+    )
+    data
+}
+
+#' @description
+#' Description.
+#'
+#' @param file_path A param.
 #'
 #' @return An output.
 #'
@@ -29,12 +48,7 @@ get_file_reader <- function(file_path) {
 #'
 #' @noRd
 read_compass_metadata <- function(file_path) {
-    file_reader <- get_file_reader(file_path)
-    data <- file_reader(
-        file_path,
-        col_types = readr::cols(.default = "c"),
-        na = c("", "NA", "N/A")
-    )
+    data <- read_table(file_path, readr::cols(.default = "c"))
     data
 }
 
@@ -43,28 +57,18 @@ read_compass_metadata <- function(file_path) {
 #'
 #' @param file_path A param.
 #' @param index A param.
+#' @param suppress_warnings A param.
+#' @param ... A param.
 #'
 #' @return An output.
 #'
 #' @importFrom magrittr %>% %<>%
 #'
 #' @noRd
-read_compass_matrix <- function(file_path, index) {
-    file_reader <- get_file_reader(file_path)
-    data <- suppressWarnings(file_reader(
-        file_path,
-        col_types = readr::cols(X1 = "c", .default = "d"),
-        na = c("", "NA", "N/A")
-    ))
-    if (all(is.na(data[[1]]))) {
-        stop(
-            stringr::str_glue(
-                "Badly formatted file: {file_path}. (Commonly, the problem is that the number of columns names is one less than the number of columns. If this is the case, try adding a \"tab\" character to the beginning of the first line.)"
-            ),
-            call. = FALSE
-        )
-    }
-    data %<>%
+read_compass_matrix <- function(file_path, index, ..., suppress_warnings = FALSE) {
+    wrapper <- if (suppress_warnings) { suppressWarnings } else { function(expr) { expr } }
+    data <-
+        wrapper(read_table(file_path, readr::cols())) %>%
         dplyr::rename(!!index := 1) %>%
         tibble::column_to_rownames(index) %>%
         as.data.frame()
