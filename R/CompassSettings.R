@@ -20,8 +20,8 @@ CompassSettings <- R6::R6Class(
         #' @field cell_metadata_path A path to a file containing tabular cell metadata. Each row should represent a single cell. The columns are up to you, so long as one of them provides a unique identifier for each cell.
         cell_metadata_path = NULL,
 
-        #' @field compass_scores_path A path to a file containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)
-        compass_scores_path = NULL,
+        #' @field compass_reaction_scores_path A path to a file containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)
+        compass_reaction_scores_path = NULL,
 
         #' @field linear_gene_expression_matrix_path A path to a file containing the linear gene expression matrix. (This is the input to the COMPASS algorithm.)
         linear_gene_expression_matrix_path = NULL,
@@ -56,7 +56,7 @@ CompassSettings <- R6::R6Class(
         #' @param reaction_metadata_file A path to a file in the metabolic_model_directory containing tabular reaction metadata. Each row should represent a single reaction. The columns are up to you, so long as one of them provides a unique identifier for each reaction.
         #' @param user_data_directory The path to the directory containing the data specific to the analysis you hope to conduct.
         #' @param cell_metadata_file A path to a file in the user_data_directory containing tabular cell metadata. Each row should represent a single cell. The columns are up to you, so long as one of them provides a unique identifier for each cell.
-        #' @param compass_scores_file A path to a file in the user_data_directory containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)
+        #' @param compass_reaction_scores_file A path to a file in the user_data_directory containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)
         #' @param linear_gene_expression_matrix_file A path to a file in the user_data_directory containing the linear gene expression matrix. (This is the input to the COMPASS algorithm.)
         #' @param cell_id_col_name The name of the column that uniquely identifies each cell in the cell metadata file.
         #' @param gene_id_col_name The name of the column that uniquely identifies each gene in the gene metadata file.
@@ -76,7 +76,7 @@ CompassSettings <- R6::R6Class(
             reaction_metadata_file = "reaction_metadata.csv",
             user_data_directory,
             cell_metadata_file = "cell_metadata.csv",
-            compass_scores_file = "reactions.tsv",
+            compass_reaction_scores_file = "reactions.tsv",
             linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
             cell_id_col_name,
             gene_id_col_name,
@@ -102,9 +102,9 @@ CompassSettings <- R6::R6Class(
                 user_data_directory,
                 cell_metadata_file
             )
-            self$compass_scores_path <- file.path(
+            self$compass_reaction_scores_path <- file.path(
                 user_data_directory,
-                compass_scores_file
+                compass_reaction_scores_file
             )
             self$linear_gene_expression_matrix_path <- file.path(
                 user_data_directory,
@@ -156,7 +156,7 @@ CompassSettings <- R6::R6Class(
                 )),
                 indent(get_binding_representation(
                     "Reaction consistencies path",
-                    self$compass_scores_path
+                    self$compass_reaction_scores_path
                 )),
                 indent(get_binding_representation(
                     "Linear gene expression matrix path",

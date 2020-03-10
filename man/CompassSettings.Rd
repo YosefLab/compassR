@@ -17,7 +17,7 @@ An object through which you can specify settings for your COMPASS analysis.
 
 \item{\code{cell_metadata_path}}{A path to a file containing tabular cell metadata. Each row should represent a single cell. The columns are up to you, so long as one of them provides a unique identifier for each cell.}
 
-\item{\code{compass_scores_path}}{A path to a file containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)}
+\item{\code{compass_reaction_scores_path}}{A path to a file containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)}
 
 \item{\code{linear_gene_expression_matrix_path}}{A path to a file containing the linear gene expression matrix. (This is the input to the COMPASS algorithm.)}
 
@@ -60,7 +60,7 @@ Description.
   reaction_metadata_file = "reaction_metadata.csv",
   user_data_directory,
   cell_metadata_file = "cell_metadata.csv",
-  compass_scores_file = "reactions.tsv",
+  compass_reaction_scores_file = "reactions.tsv",
   linear_gene_expression_matrix_file = "linear_gene_expression_matrix.tsv",
   cell_id_col_name,
   gene_id_col_name,
@@ -89,7 +89,7 @@ Description.
 
 \item{\code{cell_metadata_file}}{A path to a file in the user_data_directory containing tabular cell metadata. Each row should represent a single cell. The columns are up to you, so long as one of them provides a unique identifier for each cell.}
 
-\item{\code{compass_scores_file}}{A path to a file in the user_data_directory containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)}
+\item{\code{compass_reaction_scores_file}}{A path to a file in the user_data_directory containing the raw reaction consistencies matrix. (This is the output of the COMPASS algorithm.)}
 
 \item{\code{linear_gene_expression_matrix_file}}{A path to a file in the user_data_directory containing the linear gene expression matrix. (This is the input to the COMPASS algorithm.)}
 
