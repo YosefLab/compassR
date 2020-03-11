@@ -66,9 +66,9 @@ read_compass_metadata <- function(file_path) {
 #'
 #' @noRd
 read_compass_matrix <- function(file_path, index, ..., suppress_warnings = FALSE) {
-    wrapper <- if (suppress_warnings) { suppressWarnings } else { function(expr) { expr } }
+    warning_handler <- if (suppress_warnings) { suppressWarnings } else { function(expr) { expr } }
     data <-
-        wrapper(read_table(file_path, readr::cols())) %>%
+        warning_handler(read_table(file_path, readr::cols())) %>%
         dplyr::rename(!!index := 1) %>%
         tibble::column_to_rownames(index) %>%
         as.data.frame()
