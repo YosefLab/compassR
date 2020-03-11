@@ -93,19 +93,19 @@ We can use functions from the tidyverse to combine the results of our Wilcoxon t
 cohens_d_by_subsystem <-
     wilcoxon_results %>%
     left_join(
-        select(compass_data$reaction_partitions, "reaction_id", "undirected_reaction_id"),
+        select(compass_data$reaction_partitions, "reaction_id", "reaction_no_direction"),
         by = "reaction_id"
     ) %>%
     left_join(
         compass_data$reaction_metadata,
-        by = c("undirected_reaction_id" = "rxn_code_nodirection")
+        by = "reaction_no_direction"
     ) %>%
     # Keep only "confident reactions", as defined in our paper.
-    filter(!is.na(rxn_EC_number)) %>%
-    filter(rxn_confidence == "0" | rxn_confidence == "4") %>%
+    filter(!is.na(EC_number)) %>%
+    filter(confidence == "0" | confidence == "4") %>%
     # Keep only "interesting subsystems", as defined in our paper.
-    filter(!(startsWith(subsystem, "Transport") | startsWith(subsystem, "Exchange"))) %>%
     filter(!(subsystem == "Miscellaneous" | subsystem == "Unassigned")) %>%
+    filter(!(startsWith(subsystem, "Transport") | startsWith(subsystem, "Exchange"))) %>%
     # Keep only subsystems of non-negligible size.
     group_by(subsystem) %>%
     filter(n() > 5) %>%
