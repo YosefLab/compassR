@@ -58,7 +58,7 @@ CompassData <- R6::R6Class(
                 separator = settings$reaction_direction_separator,
                 annotations = settings$reaction_directions,
                 id_col_name = "reaction_id",
-                unannotated_col_name = "undirected_reaction_id",
+                unannotated_col_name = "reaction_no_direction",
                 annotation_col_name = "direction"
             )
             metareactions <- get_metareactions(
