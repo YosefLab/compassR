@@ -15,7 +15,7 @@ An object through which you can access several useful tables for your COMPASS an
 
 \item{\code{metareaction_consistencies}}{Each row is a metareaction and each column is a cell. metareaction_consistencies[i, j] is the consistency (or "compatibility") between metareaction i and cell j.}
 
-\item{\code{gene_expression_statistics}}{Each column describes a cell's total expression, metabolic expression, and metabolic activity.}
+\item{\code{gene_expression_statistics}}{Each row describes a cell in terms of its ID, total expression, metabolic expression, and metabolic activity.}
 
 \item{\code{cell_metadata}}{The cell metadata from cell_metadata.csv. In this example it's the Th17 cell data from the papers linked above.}
 
