@@ -53,12 +53,12 @@ This line may take a minute to run. Under the hood, it's postprocessing the resu
 | ---------------------------- | ---------- | ------------------------------------------------------------ |
 | `reaction_consistencies`     | Data frame | Each row is a reaction and each column is a cell. `reaction_consistencies[i, j]` is the consitency (or "compatibility") between reaction `i` and cell `j`. |
 | `metareaction_consistencies` | Data frame | Each row is a metareaction and each column is a cell. `metareaction_consistencies[i, j]` is the consistency (or "compatibility") between metareaction `i` and cell `j`. |
-| `gene_expression_statistics` | Tibble     | Each row describes a cell and its total expression, metabolic expression, and metabolic activity. |
+| `gene_expression_statistics` | Tibble     | Each row describes a cell in terms of its total expression, metabolic expression, and metabolic activity. |
 | `cell_metadata`              | Tibble     | The cell metadata from `cell_metadata.csv`. In this example it's the Th17 cell data from the papers linked above. |
 | `gene_metadata`              | Tibble     | The gene metadata from the metabolic model (RECON2, by default). |
 | `metabolite_metadata`        | Tibble     | The metabolite metadata from the metabolic model (RECON2, by default). |
 | `reaction_metadata`          | Tibble     | The reaction metadata from the metabolic model (RECON2, by default). |
-| `reaction_partitions`        | Tibble     | Each row describes a reaction and which metareaction (i.e. reaction group) it belongs to. |
+| `reaction_partitions`        | Tibble     | Each row describes a reaction (in terms of its ID, undirected ID, and direction) and which metareaction (i.e. reaction group) it belongs to. |
 
 ### Exploring the statistical analysis suite
 
