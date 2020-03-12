@@ -18,10 +18,13 @@ get_gene_expression_statistics <- function(linear_gene_expression_matrix, gene_m
     )
     total_expressions <- colSums(linear_gene_expression_matrix)
     metabolic_expressions <- colSums(linear_gene_expression_matrix[metabolic_genes,])
-    gene_expression_statistics <- rbind(
-        total_expression = total_expressions,
-        metabolic_expression = metabolic_expressions,
-        metabolic_activity = metabolic_expressions / total_expressions
-    )
+    gene_expression_statistics <-
+        rbind(
+            total_expression = total_expressions,
+            metabolic_expression = metabolic_expressions,
+            metabolic_activity = metabolic_expressions / total_expressions
+        ) %>%
+        t() %>%
+        as_tibble(rownames = "cell_id")
     gene_expression_statistics
 }
