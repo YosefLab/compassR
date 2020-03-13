@@ -49,10 +49,10 @@ CompassData <- R6::R6Class(
             metabolite_metadata <- read_compass_metadata(settings$metabolite_metadata_path)
             reaction_metadata <- read_compass_metadata(settings$reaction_metadata_path)
             cell_metadata <- read_compass_metadata(settings$cell_metadata_path)
-            compass_scores <- read_compass_matrix(settings$compass_scores_path, "reaction_id", suppress_warnings = TRUE)
+            compass_reaction_scores <- read_compass_matrix(settings$compass_reaction_scores_path, "reaction_id", suppress_warnings = TRUE)
             linear_gene_expression_matrix <- read_compass_matrix(settings$linear_gene_expression_matrix_path, "gene")
             reaction_consistencies <- get_reaction_consistencies(
-                compass_scores,
+                compass_reaction_scores,
                 min_consistency = settings$min_reaction_consistency,
                 min_range = settings$min_reaction_range
             )
