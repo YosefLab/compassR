@@ -17,6 +17,9 @@ CompassData <- R6::R6Class(
         #' @field metareaction_consistencies Each row is a metareaction and each column is a cell. metareaction_consistencies[i, j] is the consistency (or "compatibility") between metareaction i and cell j.
         metareaction_consistencies = NULL,
 
+        #' @field metabolic_genes Each row describes a gene in terms of its ID and whether it's a metabolic gene.
+        metabolic_genes = NULL,
+
         #' @field gene_expression_statistics Each row describes a cell in terms of its ID, total expression, metabolic expression, and metabolic activity.
         gene_expression_statistics = NULL,
 
@@ -32,7 +35,7 @@ CompassData <- R6::R6Class(
         #' @field reaction_metadata The reaction metadata from the metabolic model (RECON2, by default).
         reaction_metadata = NULL,
 
-        #' @field reaction_partitions Each row describes a reaction (in terms of its ID, undirected ID, and direction) and which metareaction (i.e. reaction group) it belongs to.
+        #' @field reaction_partitions Each row describes a reaction in terms of its ID, undirected ID, direction, and which metareaction (i.e. reaction group) it belongs to.
         reaction_partitions = NULL,
 
         #' @description
@@ -75,14 +78,26 @@ CompassData <- R6::R6Class(
                     metareactions,
                     by = "reaction_id"
                 )
+            metabolic_genes <-
+                tibble::tibble(gene = rownames(linear_gene_expression_matrix)) %>%
+                dplyr::left_join(
+                    tibble::tibble(
+                        gene = gene_metadata[[settings$gene_id_col_name]],
+                        is_metabolic = TRUE
+                    ),
+                    by = "gene"
+                ) %>%
+                tidyr::replace_na(list(
+                    is_metabolic = FALSE
+                ))
             gene_expression_statistics <- get_gene_expression_statistics(
                 linear_gene_expression_matrix,
-                gene_metadata,
-                gene_id_col_name = settings$gene_id_col_name
+                metabolic_genes
             )
             self$settings <- settings
             self$reaction_consistencies <- reaction_consistencies
             self$metareaction_consistencies <- metareaction_consistencies
+            self$metabolic_genes <- metabolic_genes
             self$gene_expression_statistics <- gene_expression_statistics
             self$cell_metadata <- cell_metadata
             self$gene_metadata <- gene_metadata
@@ -123,6 +138,13 @@ CompassData <- R6::R6Class(
                     "data frame",
                     "metareactions",
                     "cells"
+                )),
+                indent(get_tabular_data_representation(
+                    self$metabolic_genes,
+                    "metabolic_genes",
+                    "tibble",
+                    "genes",
+                    "fields"
                 )),
                 indent(get_tabular_data_representation(
                     self$gene_expression_statistics,

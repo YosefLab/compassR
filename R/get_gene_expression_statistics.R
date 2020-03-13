@@ -2,22 +2,20 @@
 #' Description.
 #'
 #' @param linear_gene_expression_matrix A param.
-#' @param gene_metadata A param.
-#' @param gene_id_col_name A param.
-#' @param ... A param.
+#' @param metabolic_genes A param.
 #'
 #' @return An output.
 #'
 #' @importFrom magrittr %>% %<>%
 #'
 #' @noRd
-get_gene_expression_statistics <- function(linear_gene_expression_matrix, gene_metadata, ..., gene_id_col_name) {
-    metabolic_genes <- intersect(
-        rownames(linear_gene_expression_matrix),
-        gene_metadata[[gene_id_col_name]]
-    )
+get_gene_expression_statistics <- function(linear_gene_expression_matrix, metabolic_genes) {
     total_expressions <- colSums(linear_gene_expression_matrix)
-    metabolic_expressions <- colSums(linear_gene_expression_matrix[metabolic_genes,])
+    metabolic_expressions <- colSums(linear_gene_expression_matrix[
+        metabolic_genes %>%
+        dplyr::filter(is_metabolic == TRUE) %>%
+        dplyr::pull(gene),
+    ])
     gene_expression_statistics <-
         rbind(
             total_expression = total_expressions,
@@ -25,6 +23,6 @@ get_gene_expression_statistics <- function(linear_gene_expression_matrix, gene_m
             metabolic_activity = metabolic_expressions / total_expressions
         ) %>%
         t() %>%
-        as_tibble(rownames = "cell_id")
+        tibble::as_tibble(rownames = "cell_id")
     gene_expression_statistics
 }

@@ -123,7 +123,7 @@ CompassAnalyzer <- R6::R6Class(
                 self$settings$cell_id_col_name,
                 paste("component", 1:num_components, sep = "_")
             )
-            umap_components %<>% as_tibble()
+            umap_components %<>% tibble::as_tibble()
             umap_components
         }
 
