@@ -1,3 +1,5 @@
+# Reproduces Fig. 2(c) from our paper. (This script works out-of-the-box with the Th17 cell data set included in the package.)
+
 library(compassR)
 library(ggrepel)
 library(tidyverse)
