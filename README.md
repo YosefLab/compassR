@@ -58,7 +58,7 @@ This line may take a minute to run. Under the hood, it's postprocessing the resu
 | `gene_metadata`              | Tibble     | The gene metadata from the metabolic model (RECON2, by default). |
 | `metabolite_metadata`        | Tibble     | The metabolite metadata from the metabolic model (RECON2, by default). |
 | `reaction_metadata`          | Tibble     | The reaction metadata from the metabolic model (RECON2, by default). |
-| `reaction_partitions`        | Tibble     | Each row describes a reaction (in terms of its ID, undirected ID, and direction) and which metareaction (i.e. reaction group) it belongs to. |
+| `reaction_partitions`        | Tibble     | Each row describes a reaction in terms of its ID, undirected ID, direction, and which metareaction (i.e. reaction group) it belongs to. |
 
 ### Exploring the statistical analysis suite
 
