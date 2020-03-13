@@ -61,6 +61,8 @@ This line may take a minute to run. Under the hood, it's postprocessing the resu
 | `reaction_metadata`          | Tibble     | The reaction metadata from the metabolic model (RECON2, by default). |
 | `reaction_partitions`        | Tibble     | Each row describes a reaction in terms of its ID, undirected ID, direction, and which metareaction (i.e. reaction group) it belongs to. |
 
+Note that all the metadata tables' fields are read as characters, and must manually be coerced into other data types if desired.
+
 ### Exploring the statistical analysis suite
 
 Now we're ready to start our analysis! We begin by making a `CompassAnalyzer` object.
