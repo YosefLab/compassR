@@ -125,6 +125,7 @@ cohens_d_by_subsystem <-
     )
 ```
 
-And with a little `ggplot2`, we can even reproduce figures [2(c)]() and [2(e)](ex/up_and_down_regulated_reactions_cross_pathway_boundaries.R) from the papers linked above!
+And with [a little `ggplot2`](ex/), we can even reproduce figures 2(c) and 2(e) from the papers linked above!
 
+<img src="https://i.imgur.com/a4RYSAa.png"></img>
 <img src="https://i.imgur.com/IENsq0k.png"></img>
