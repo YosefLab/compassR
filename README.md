@@ -90,5 +90,5 @@ wilcoxon_results <- compass_analyzer$conduct_wilcoxon_test(
 
 We can use functions from the tidyverse to combine the results of our Wilcoxon test with the data we loaded earlier. Then, with just [a little `ggplot2`](ex/), we can even reproduce figures 2(c) and 2(e) from the papers linked above!
 
-<img src="https://i.imgur.com/a4RYSAa.png" height="400"></img>
+<img src="https://i.imgur.com/a4RYSAa.png"></img>
 <img src="https://i.imgur.com/IENsq0k.png"></img>
