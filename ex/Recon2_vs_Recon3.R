@@ -29,7 +29,7 @@ wilcoxon_results <- compass_analyzer$conduct_wilcoxon_test(
     for_metareactions = FALSE
 )
 
-facets <- c( "Glycolysis", "TCA cycle", "Fatty acid oxidation", "Amino acid metabolism")
+facets <- c( "Glycolysis")
 
 compass_scores_by_cell_type_Recon3 <-
     wilcoxon_results %>%
@@ -140,7 +140,7 @@ wilcoxon_results <- compass_analyzer$conduct_wilcoxon_test(
     for_metareactions = FALSE
 )
 
-facets <- c( "Glycolysis", "TCA cycle", "Fatty acid oxidation", "Amino acid metabolism")
+facets <- c( "Glycolysis")
 
 compass_scores_by_cell_type_Recon2 <-
     wilcoxon_results %>%
@@ -228,34 +228,30 @@ compass_scores_by_cell_type_Recon2 <-
         TRUE ~ ""
     ))
 
+compass_scores_by_cell_type <-
+    merge(compass_scores_by_cell_type_Recon2, compass_scores_by_cell_type_Recon3, by = "reaction_id")
+
 ggplot(
-    compass_scores_by_cell_type_Recon3,
-    compass_scores_by_cell_type_Recon2,
+    compass_scores_by_cell_type,
     aes(
-        x = cohens_d,
-        y = -log10(adjusted_p_value),
-        color = subsystem_priority
+        x = cohens_d.x,
+        y = cohens_d.y
     )
 ) +
-ggtitle("Differential COMPASS Scores for Th17p vs. Th17n Cells") +
-xlab("Cohen's d") + ylab("-log(BH-adjusted p-value)") +
-xlim(-2.2, 2.2) +
-facet_wrap(vars(subsystem_priority), scales = "free_y", ncol = 2) +
-scale_color_manual(values = c(
-    "Glycolysis" = "#662D8C",
-    "TCA cycle" = "#B87013",
-    "Fatty acid oxidation" = "#0B0D9D",
-    "Amino acid metabolism" = "#B82130"
-)) +
-guides(color = FALSE) +
-geom_point(size = 1, alpha = 0.5) +
-geom_hline(yintercept = 1, linetype="dashed", color = "blue") +
-geom_vline(xintercept = 0, linetype="dashed", color = "blue") +
+ggtitle("Differential COMPASS Scores for Recon2 vs Recon3") +
+xlab("Cohen's d for Recon 2") + ylab("Cohen's d for Recon 3") +
+xlim(-0.25, 0.6) + ylim(-0.25, 0.6) +
+geom_point(size = 3, alpha = 0.5, aes(colour =
+                   (-log10(adjusted_p_value.x) > 1))
+        ) +
+scale_colour_manual(name = 'Recon2 p-value < 0.1', values = setNames(c('dark green','purple'), c(T, F))) +
+geom_vline(xintercept = 0, show.legend=TRUE) +
+geom_abline(linetype="dashed", color = "blue") +
 geom_text_repel(
-    aes(label = label),
+    aes(label = label.x),
     min.segment.length = 0.1,
     point.padding = 0.5,
-    size = 2,
+    size = 3,
     seed = 7
 ) +
 theme_bw()
