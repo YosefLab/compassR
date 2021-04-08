@@ -8,7 +8,8 @@ compass_settings <- CompassSettings$new(
     metabolic_model_directory = "~/yosef-lab/compassR/inst/extdata/RECON3",
     user_data_directory = "~/yosef-lab/compassR/inst/extdata/Th17_Recon3",
     cell_id_col_name = "cell_id",
-    gene_id_col_name = "symbol"
+    gene_id_col_name = "symbol",
+    compass_reaction_scores_file = "reactions.tsv"
 )
 
 compass_data <- CompassData$new(compass_settings)
@@ -29,7 +30,7 @@ wilcoxon_results <- compass_analyzer$conduct_wilcoxon_test(
     for_metareactions = FALSE
 )
 
-facets <- c( "Glycolysis", "TCA cycle", "Fatty acid oxidation", "Amino acid metabolism")
+facets <- c( "Glycolysis")
 
 compass_scores_by_cell_type <-
     wilcoxon_results %>%
@@ -122,7 +123,7 @@ ggplot(
         color = subsystem_priority
     )
 ) +
-ggtitle("Differential COMPASS Scores for Th17p vs. Th17n Cells") +
+ggtitle("Differential COMPASS Scores for Th17p vs. Th17n Cells Recon3 Model") +
 xlab("Cohen's d") + ylab("-log(BH-adjusted p-value)") +
 xlim(-2.2, 2.2) +
 facet_wrap(vars(subsystem_priority), scales = "free_y", ncol = 2) +
@@ -141,6 +142,7 @@ geom_text_repel(
     min.segment.length = 0.1,
     point.padding = 0.5,
     size = 2,
-    seed = 7
+    seed = 7,
+    max.overlaps = 400
 ) +
 theme_bw()

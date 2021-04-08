@@ -8,7 +8,8 @@ compass_settings <- CompassSettings$new(
     metabolic_model_directory = "~/yosef-lab/compassR/inst/extdata/RECON3",
     user_data_directory = "~/yosef-lab/compassR/inst/extdata/Th17_Recon3",
     cell_id_col_name = "cell_id",
-    gene_id_col_name = "symbol"
+    gene_id_col_name = "symbol",
+    compass_reaction_scores_file = "reactions_orig.tsv"
 )
 
 compass_data <- CompassData$new(compass_settings)
@@ -240,11 +241,10 @@ ggplot(
 ) +
 ggtitle("Differential COMPASS Scores for Recon2 vs Recon3") +
 xlab("Cohen's d for Recon 2") + ylab("Cohen's d for Recon 3") +
-xlim(-0.25, 0.6) + ylim(-0.25, 0.6) +
 geom_point(size = 3, alpha = 0.5, aes(colour =
-                   (-log10(adjusted_p_value.x) > 1))
+                   (-log10(adjusted_p_value.x) > 1 & -log10(adjusted_p_value.y) > 1))
         ) +
-scale_colour_manual(name = 'Recon2 p-value < 0.1', values = setNames(c('dark green','purple'), c(T, F))) +
+scale_colour_manual(name = 'Recon2 and Recon3 p-value < 0.1', values = setNames(c('dark green','purple'), c(T, F))) +
 geom_vline(xintercept = 0, show.legend=TRUE) +
 geom_abline(linetype="dashed", color = "blue") +
 geom_text_repel(
