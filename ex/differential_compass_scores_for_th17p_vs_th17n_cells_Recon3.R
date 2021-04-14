@@ -4,12 +4,14 @@ library(compassR)
 library(ggrepel)
 library(tidyverse)
 
+model_name <- "full"
+
 compass_settings <- CompassSettings$new(
     metabolic_model_directory = "~/yosef-lab/compassR/inst/extdata/RECON3",
     user_data_directory = "~/yosef-lab/compassR/inst/extdata/Th17_Recon3",
     cell_id_col_name = "cell_id",
     gene_id_col_name = "symbol",
-    compass_reaction_scores_file = "reactions.tsv"
+    compass_reaction_scores_file = paste("reactions_", model_name, ".tsv", sep = "")
 )
 
 compass_data <- CompassData$new(compass_settings)
@@ -123,9 +125,9 @@ ggplot(
         color = subsystem_priority
     )
 ) +
-ggtitle("Differential COMPASS Scores for Th17p vs. Th17n Cells Recon3 Model") +
+ggtitle(paste("Recon3", model_name)) +
 xlab("Cohen's d") + ylab("-log(BH-adjusted p-value)") +
-xlim(-2.2, 2.2) +
+xlim(-1, 1) +
 facet_wrap(vars(subsystem_priority), scales = "free_y", ncol = 2) +
 scale_color_manual(values = c(
     "Glycolysis" = "#662D8C",
@@ -139,10 +141,17 @@ geom_hline(yintercept = 1, linetype="dashed", color = "blue") +
 geom_vline(xintercept = 0, linetype="dashed", color = "blue") +
 geom_text_repel(
     aes(label = label),
-    min.segment.length = 0.1,
+    min.segment.length = 0,
     point.padding = 0.5,
-    size = 2,
+    size = 3,
     seed = 7,
-    max.overlaps = 400
+    max.overlaps = Inf,
+    force = 3
 ) +
-theme_bw()
+theme_bw() +
+theme(plot.title = element_text(hjust = 0.5))
+ggsave(
+    paste("~/yosef-lab/misc/R_plots/Recon3 ", model_name, ".png", sep = ""),
+    width = 5,
+    height = 6
+)

@@ -2,6 +2,8 @@ library(compassR)
 library(ggrepel)
 library(tidyverse)
 
+model_name <- "full"
+
 #Recon3
 
 compass_settings <- CompassSettings$new(
@@ -9,7 +11,7 @@ compass_settings <- CompassSettings$new(
     user_data_directory = "~/yosef-lab/compassR/inst/extdata/Th17_Recon3",
     cell_id_col_name = "cell_id",
     gene_id_col_name = "symbol",
-    compass_reaction_scores_file = "reactions_orig.tsv"
+    compass_reaction_scores_file = paste("reactions_", model_name, ".tsv", sep = "")
 )
 
 compass_data <- CompassData$new(compass_settings)
@@ -239,14 +241,14 @@ ggplot(
         y = cohens_d.y
     )
 ) +
-ggtitle("Differential COMPASS Scores for Recon2 vs Recon3") +
-xlab("Cohen's d for Recon 2") + ylab("Cohen's d for Recon 3") +
+ggtitle(paste("Recon2 vs Recon3", model_name)) +
+xlab("Cohen's d for Recon2") + ylab(paste("Cohen's d for Recon3", model_name)) +
 geom_point(size = 3, alpha = 0.5, aes(colour =
                    (-log10(adjusted_p_value.x) > 1 & -log10(adjusted_p_value.y) > 1))
         ) +
-scale_colour_manual(name = 'Recon2 and Recon3 p-value < 0.1', values = setNames(c('dark green','purple'), c(T, F))) +
-geom_vline(xintercept = 0, show.legend=TRUE) +
-geom_abline(linetype="dashed", color = "blue") +
+scale_colour_manual(name = 'Both p-value < 0.1', values = setNames(c('dark green','purple'), c(T, F))) +
+geom_hline(yintercept = 0, show.legend=TRUE, linetype="dashed", color = "blue") +
+geom_vline(xintercept = 0, show.legend=TRUE, linetype="dashed", color = "blue") +
 geom_text_repel(
     aes(label = label.x),
     min.segment.length = 0.1,
@@ -255,3 +257,8 @@ geom_text_repel(
     seed = 7
 ) +
 theme_bw()
+
+
+ggsave(
+    paste("~/yosef-lab/misc/R_plots/Recon2 vs Recon3 ", model_name, ".png", sep = "")
+)
