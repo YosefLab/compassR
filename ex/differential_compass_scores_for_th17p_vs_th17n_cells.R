@@ -140,9 +140,17 @@ geom_hline(yintercept = 1, linetype="dashed", color = "blue") +
 geom_vline(xintercept = 0, linetype="dashed", color = "blue") +
 geom_text_repel(
     aes(label = label),
-    min.segment.length = 0.1,
+    min.segment.length = 0.05,
     point.padding = 0.5,
-    size = 2,
-    seed = 7
+    size = 3,
+    seed = 7,
+    max.overlaps = Inf,
+    force = 3
 ) +
 theme_bw()
+
+ggsave(
+    paste("~/yosef-lab/misc/R_plots/Recon2.png", sep = ""),
+    height = 8,
+    width = 8
+)

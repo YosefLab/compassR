@@ -2,7 +2,7 @@ library(compassR)
 library(ggrepel)
 library(tidyverse)
 
-model_name <- "full"
+model_name <- "model"
 
 #Recon3
 
@@ -46,7 +46,7 @@ compass_scores_by_cell_type_Recon3 <-
     ) %>%
     # Exclude non-mitochondrially localized reactions from TCA.
     mutate(subsystem = case_when(
-        reaction_id == "SPMDOX_pos" ~ "Arginine and Proline Metabolism",
+        reaction_id == "SPMDOX_pos" ~ "Arginine and proline Metabolism",
         subsystem == "Citric acid cycle" & !grepl("[m]", formula, fixed = TRUE) ~ "Other",
         TRUE ~ subsystem
     )) %>%
@@ -59,13 +59,13 @@ compass_scores_by_cell_type_Recon3 <-
         ) %>%
         fct_collapse("Amino acid metabolism" = c(
             "Alanine and aspartate metabolism",
-            "Arginine and Proline Metabolism",
-            "beta-Alanine metabolism",
+            "Arginine and proline Metabolism",
+            "Beta-Alanine metabolism",
             "Cysteine Metabolism",
             "D-alanine metabolism",
             "Folate metabolism",
             "Glutamate metabolism",
-            "Glycine, serine, alanine and threonine metabolism",
+            "Glycine, serine, alanine, and threonine metabolism",
             "Histidine metabolism",
             "Lysine metabolism",
             "Methionine and cysteine metabolism",
@@ -260,5 +260,7 @@ theme_bw()
 
 
 ggsave(
-    paste("~/yosef-lab/misc/R_plots/Recon2 vs Recon3 ", model_name, ".png", sep = "")
+    paste("~/yosef-lab/misc/R_plots/Recon2 vs Recon3 ", model_name, ".png", sep = ""),
+    width = 6,
+    height = 4.5
 )

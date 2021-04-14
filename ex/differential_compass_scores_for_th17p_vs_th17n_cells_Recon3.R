@@ -4,7 +4,7 @@ library(compassR)
 library(ggrepel)
 library(tidyverse)
 
-model_name <- "full"
+model_name <- "model_all"
 
 compass_settings <- CompassSettings$new(
     metabolic_model_directory = "~/yosef-lab/compassR/inst/extdata/RECON3",
@@ -32,7 +32,7 @@ wilcoxon_results <- compass_analyzer$conduct_wilcoxon_test(
     for_metareactions = FALSE
 )
 
-facets <- c( "Glycolysis")
+facets <- c( "Glycolysis", "TCA cycle", "Fatty acid oxidation", "Amino acid metabolism")
 
 compass_scores_by_cell_type <-
     wilcoxon_results %>%
@@ -44,39 +44,41 @@ compass_scores_by_cell_type <-
         compass_data$reaction_metadata,
         by = "reaction_no_direction"
     ) %>%
+    # Keep only "confident reactions", as defined in our paper.
+    filter(!is.na(EC_number)) %>%
+    filter(confidence == "0" | confidence == "4") %>%
     # Exclude non-mitochondrially localized reactions from TCA.
     mutate(subsystem = case_when(
-        reaction_id == "SPMDOX_pos" ~ "Arginine and Proline Metabolism",
+        reaction_id == "SPMDOX_pos" ~ "Arginine and proline Metabolism",
         subsystem == "Citric acid cycle" & !grepl("[m]", formula, fixed = TRUE) ~ "Other",
         TRUE ~ subsystem
     )) %>%
     # Assign reactions to the appropriate subsystem.
     mutate(
         subsystem_priority = factor(subsystem) %>%
-        fct_recode(
-            "Glycolysis" = "Glycolysis/gluconeogenesis",
-            "TCA cycle" = "Citric acid cycle"
-        ) %>%
-        fct_collapse("Amino acid metabolism" = c(
-            "Alanine and aspartate metabolism",
-            "Arginine and Proline Metabolism",
-            "beta-Alanine metabolism",
-            "Cysteine Metabolism",
-            "D-alanine metabolism",
-            "Folate metabolism",
-            "Glutamate metabolism",
-            "Glycine, serine, alanine and threonine metabolism",
-            "Histidine metabolism",
-            "Lysine metabolism",
-            "Methionine and cysteine metabolism",
-            "Taurine and hypotaurine metabolism",
-            "Tryptophan metabolism",
-            "Tyrosine metabolism",
-            "Urea cycle",
-            "Valine, leucine, and isoleucine metabolism"
-        )) %>%
-        fct_other(keep = facets) %>%
-        fct_relevel(facets)
+            fct_recode(
+                "Glycolysis" = "Glycolysis/gluconeogenesis",
+                "TCA cycle" = "Citric acid cycle"
+            ) %>%
+            fct_collapse("Amino acid metabolism" = c(
+                "Alanine and aspartate metabolism",
+                "Arginine and proline Metabolism",
+                "Beta-Alanine metabolism",
+                "D-alanine metabolism",
+                "Folate metabolism",
+                "Glutamate metabolism",
+                "Glycine, serine, alanine, and threonine metabolism",
+                "Histidine metabolism",
+                "Lysine metabolism",
+                "Methionine and cysteine metabolism",
+                "Taurine and hypotaurine metabolism",
+                "Tryptophan metabolism",
+                "Tyrosine metabolism",
+                "Urea cycle",
+                "Valine, leucine, and isoleucine metabolism"
+            )) %>%
+            fct_other(keep = facets) %>%
+            fct_relevel(facets)
     ) %>%
     # Keep only the subsystems for which we want to plot a facet.
     filter(subsystem_priority != "Other") %>%
@@ -125,9 +127,9 @@ ggplot(
         color = subsystem_priority
     )
 ) +
-ggtitle(paste("Recon3", model_name)) +
+ggtitle("Recon3 model Differential COMPASS Scores for Th17p vs. Th17n Cells") +
 xlab("Cohen's d") + ylab("-log(BH-adjusted p-value)") +
-xlim(-1, 1) +
+xlim(-2.2, 2.2) +
 facet_wrap(vars(subsystem_priority), scales = "free_y", ncol = 2) +
 scale_color_manual(values = c(
     "Glycolysis" = "#662D8C",
@@ -141,17 +143,17 @@ geom_hline(yintercept = 1, linetype="dashed", color = "blue") +
 geom_vline(xintercept = 0, linetype="dashed", color = "blue") +
 geom_text_repel(
     aes(label = label),
-    min.segment.length = 0,
+    min.segment.length = 0.05,
     point.padding = 0.5,
     size = 3,
     seed = 7,
     max.overlaps = Inf,
     force = 3
 ) +
-theme_bw() +
-theme(plot.title = element_text(hjust = 0.5))
+theme_bw()
+
 ggsave(
     paste("~/yosef-lab/misc/R_plots/Recon3 ", model_name, ".png", sep = ""),
-    width = 5,
-    height = 6
+    height = 8,
+    width = 8
 )
