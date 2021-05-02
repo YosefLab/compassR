@@ -1,3 +1,5 @@
+## PLEASE NOTE: this package is unmaintaned and will soon be deprecated.
+
 # compassR
 
 This package provides a specialized pipeline for the analysis and interpretation of cell-to-cell metabolic heterogeneity based on the single-cell metabolic reaction consistency matrix produced by the [COMPASS algorithm](https://github.com/YosefLab/Compass). It also includes a suite of expressive utility functions for conducting statistical analyses building thereupon.
